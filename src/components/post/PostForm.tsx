@@ -36,21 +36,21 @@ export default function PostForm({ defaultBoard }: PostFormProps) {
   };
 
   return (
-    <form action={handleSubmit} className="space-y-4">
+    <form action={handleSubmit} className="space-y-5">
       {error && (
-        <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md">
+        <div className="p-3 bg-destructive/10 text-destructive text-sm rounded-lg border border-destructive/20">
           {error}
         </div>
       )}
 
-      {/* 게시판 선택 */}
+      {/* Board Select */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">게시판</label>
+        <label className="block text-sm font-medium text-foreground mb-1.5">게시판</label>
         <select
           name="board"
           defaultValue={defaultBoard || ''}
           required
-          className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4A90D9]/50"
+          className="w-full rounded-lg border border-input bg-card px-3 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/50 transition-all"
         >
           <option value="" disabled>게시판을 선택하세요</option>
           {BOARDS.map((board) => (
@@ -61,11 +61,11 @@ export default function PostForm({ defaultBoard }: PostFormProps) {
         </select>
       </div>
 
-      {/* 제목 */}
+      {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">
+        <label className="block text-sm font-medium text-foreground mb-1.5">
           제목
-          <span className={`ml-2 text-xs ${title.length > MAX_TITLE_LENGTH ? 'text-red-500' : 'text-slate-400'}`}>
+          <span className={`ml-2 text-xs font-normal ${title.length > MAX_TITLE_LENGTH ? 'text-destructive' : 'text-muted-foreground'}`}>
             {title.length}/{MAX_TITLE_LENGTH}
             {title.length > 0 && title.length <= RECOMMENDED_TITLE_LENGTH && ' ✓'}
           </span>
@@ -76,31 +76,32 @@ export default function PostForm({ defaultBoard }: PostFormProps) {
           onChange={(e) => setTitle(e.target.value)}
           maxLength={MAX_TITLE_LENGTH}
           placeholder="제목을 입력하세요 (50자 권장)"
+          className="bg-card"
           required
         />
       </div>
 
-      {/* 본문 */}
+      {/* Content */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">내용</label>
+        <label className="block text-sm font-medium text-foreground mb-1.5">내용</label>
         <Textarea
           name="content"
           rows={12}
           placeholder="내용을 입력하세요"
-          className="resize-y min-h-[200px]"
+          className="resize-y min-h-[200px] bg-card"
           required
         />
       </div>
 
-      {/* 닉네임 & 비밀번호 */}
+      {/* Nickname & Password */}
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">닉네임 (선택)</label>
-          <Input name="nickname" placeholder="익명" maxLength={20} />
+          <label className="block text-sm font-medium text-foreground mb-1.5">닉네임 (선택)</label>
+          <Input name="nickname" placeholder="익명" maxLength={20} className="bg-card" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">비밀번호 (삭제용)</label>
-          <Input name="password" type="password" placeholder="4자리 이상" minLength={4} />
+          <label className="block text-sm font-medium text-foreground mb-1.5">비밀번호 (삭제용)</label>
+          <Input name="password" type="password" placeholder="4자리 이상" minLength={4} className="bg-card" />
         </div>
       </div>
 
@@ -109,13 +110,14 @@ export default function PostForm({ defaultBoard }: PostFormProps) {
           type="button"
           variant="outline"
           onClick={() => router.back()}
+          className="rounded-lg border-border text-muted-foreground"
         >
           취소
         </Button>
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="bg-[#4A90D9] hover:bg-[#3A7BC8] text-white"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg"
         >
           {isSubmitting ? '작성 중...' : '작성하기'}
         </Button>

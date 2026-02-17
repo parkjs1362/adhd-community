@@ -71,56 +71,61 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
     }
   };
 
-  // 읽기 시간 계산
   const readingTime = Math.max(1, Math.ceil(post.content.length / 500));
 
   return (
-    <article>
-      {/* 헤더 */}
-      <div className="mb-6">
+    <article className="animate-fade-in-up">
+      {/* Header */}
+      <div className="mb-8">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-1 text-sm text-slate-400 hover:text-slate-600 mb-3"
+          className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           뒤로
         </button>
 
         {post.board && (
-          <Badge variant="secondary" className="mb-2 text-xs">
+          <Badge variant="secondary" className="mb-3 text-xs font-medium bg-secondary text-secondary-foreground">
             {post.board.name}
           </Badge>
         )}
 
-        <h1 className="text-xl font-bold text-slate-900 leading-tight mb-2">
+        <h1 className="text-xl font-bold text-foreground leading-tight mb-3">
           {post.title}
         </h1>
 
-        <div className="flex items-center gap-3 text-sm text-slate-400">
-          <span className="font-medium text-slate-600">{post.author_nickname}</span>
+        <div className="flex items-center gap-3 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground/80">{post.author_nickname}</span>
+          <span className="w-1 h-1 rounded-full bg-border" />
           <span>{dayjs(post.created_at).format('YYYY.MM.DD HH:mm')}</span>
+          <span className="w-1 h-1 rounded-full bg-border" />
           <span>조회 {post.view_count}</span>
-          <Badge variant="outline" className="text-[10px] text-slate-400">
+          <Badge variant="outline" className="text-[10px] text-muted-foreground border-border">
             약 {readingTime}분
           </Badge>
         </div>
       </div>
 
-      {/* 본문 */}
-      <div className="prose prose-slate max-w-none text-[15px] leading-[1.7] whitespace-pre-wrap break-words mb-8">
+      {/* Content */}
+      <div className="prose prose-neutral dark:prose-invert max-w-none text-[15px] leading-[1.8] whitespace-pre-wrap break-words mb-8 text-foreground/90">
         {post.content}
       </div>
 
-      {/* 액션 버튼 */}
-      <div className="flex items-center justify-between py-4 border-t border-b border-slate-200">
+      {/* Actions */}
+      <div className="flex items-center justify-between py-4 border-t border-b border-border">
         <div className="flex items-center gap-2">
           <Button
             variant={liked ? 'default' : 'outline'}
             size="sm"
             onClick={handleLike}
-            className={liked ? 'bg-[#4A90D9] hover:bg-[#3A7BC8]' : ''}
+            className={`rounded-lg transition-all ${
+              liked
+                ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
+                : 'border-border text-muted-foreground hover:text-primary hover:border-primary/30'
+            }`}
           >
-            <Heart className={`h-4 w-4 mr-1 ${liked ? 'fill-current' : ''}`} />
+            <Heart className={`h-4 w-4 mr-1.5 ${liked ? 'fill-current' : ''}`} />
             공감 {likeCount}
           </Button>
         </div>
@@ -130,7 +135,7 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
             size="sm"
             onClick={handleReport}
             disabled={isReporting}
-            className="text-slate-400 hover:text-red-500"
+            className="text-muted-foreground hover:text-destructive rounded-lg"
           >
             <Flag className="h-4 w-4 mr-1" />
             신고
@@ -140,7 +145,7 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
             size="sm"
             onClick={handleDelete}
             disabled={isDeleting}
-            className="text-slate-400 hover:text-red-500"
+            className="text-muted-foreground hover:text-destructive rounded-lg"
           >
             <Trash2 className="h-4 w-4 mr-1" />
             삭제

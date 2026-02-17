@@ -18,14 +18,15 @@ interface PostListProps {
 export default function PostList({ posts, showBoard = false, emptyMessage = '게시글이 없습니다.' }: PostListProps) {
   if (posts.length === 0) {
     return (
-      <div className="py-16 text-center text-slate-400 text-sm">
-        {emptyMessage}
+      <div className="card-elevated py-16 text-center">
+        <div className="text-4xl mb-3 opacity-30">📝</div>
+        <p className="text-sm text-muted-foreground">{emptyMessage}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg border border-slate-200">
+    <div className="card-elevated overflow-hidden stagger-children">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} showBoard={showBoard} />
       ))}

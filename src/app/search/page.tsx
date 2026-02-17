@@ -21,28 +21,28 @@ export default async function SearchPage({ searchParams }: PageProps) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-6">
-      <h1 className="text-xl font-bold text-slate-800 mb-4">검색</h1>
+      <h1 className="text-xl font-bold text-foreground mb-4">검색</h1>
 
       <form action="/search" method="get" className="flex gap-2 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             name="q"
             defaultValue={q}
             placeholder="검색어를 입력하세요..."
-            className="pl-9"
+            className="pl-9 bg-card"
             autoFocus
           />
         </div>
-        <Button type="submit" className="bg-[#4A90D9] hover:bg-[#3A7BC8] text-white">
+        <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg">
           검색
         </Button>
       </form>
 
       {q && result && (
-        <div>
-          <p className="text-sm text-slate-500 mb-3">
-            &quot;{q}&quot; 검색 결과 {result.total}건
+        <div className="animate-fade-in-up">
+          <p className="text-sm text-muted-foreground mb-3">
+            &quot;{q}&quot; 검색 결과 <span className="text-primary font-medium">{result.total}</span>건
           </p>
           <PostList
             posts={result.posts}

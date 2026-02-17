@@ -1,15 +1,9 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MobileNav from '@/components/layout/MobileNav';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -36,8 +30,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={`${geistSans.variable} font-sans antialiased bg-[#FAFAFA] text-[#1A1A1A] min-h-screen flex flex-col`}>
+    <html lang="ko" suppressHydrationWarning>
+      <head>
+        {/* Pretendard Variable Font */}
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+        {/* Prevent theme flash - static string, no user input */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className="noise-bg antialiased min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 pb-16 sm:pb-0">
           {children}

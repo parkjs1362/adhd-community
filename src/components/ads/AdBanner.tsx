@@ -20,15 +20,17 @@ export default function AdBanner({ slot, format = 'auto', responsive = true, cla
       // @ts-expect-error - AdSense global
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {
-      // AdSense 로드 실패 무시
+      // AdSense load failure ignored
     }
   }, [isProduction, clientId]);
 
   if (!isProduction || !clientId) {
     return (
-      <div className={`bg-slate-100 border border-dashed border-slate-300 rounded-lg flex items-center justify-center text-slate-400 text-sm ${className}`}
-           style={{ minHeight: format === 'rectangle' ? 250 : 90 }}>
-        광고 영역
+      <div
+        className={`bg-secondary/50 border border-dashed border-border rounded-xl flex items-center justify-center text-muted-foreground/40 text-xs font-medium ${className}`}
+        style={{ minHeight: format === 'rectangle' ? 250 : 90 }}
+      >
+        AD
       </div>
     );
   }

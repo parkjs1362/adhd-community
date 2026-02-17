@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Heart, MessageCircle, Flag } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { toggleLike } from '@/app/actions/likes';
 import { reportContent } from '@/app/actions/reports';
 import CommentForm from './CommentForm';
@@ -47,35 +46,40 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
   };
 
   return (
-    <div className={`${isReply ? 'ml-8 pl-4 border-l-2 border-slate-100' : ''}`}>
-      <div className="py-3">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-sm font-medium text-slate-700">{comment.author_nickname}</span>
-          <span className="text-xs text-slate-400">{dayjs(comment.created_at).fromNow()}</span>
+    <div className={`${isReply ? 'ml-8 pl-4 border-l-2 border-border/50' : ''}`}>
+      <div className="py-3.5">
+        <div className="flex items-center gap-2 mb-1.5">
+          <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
+            <span className="text-[10px] font-medium text-secondary-foreground">
+              {comment.author_nickname.charAt(0)}
+            </span>
+          </div>
+          <span className="text-sm font-medium text-foreground/90">{comment.author_nickname}</span>
+          <span className="text-xs text-muted-foreground">{dayjs(comment.created_at).fromNow()}</span>
         </div>
-        <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">{comment.content}</p>
-        <div className="flex items-center gap-2 mt-1.5">
-          <button onClick={handleLike} className="flex items-center gap-0.5 text-xs text-slate-400 hover:text-[#4A90D9]">
+        <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap pl-8">{comment.content}</p>
+        <div className="flex items-center gap-3 mt-2 pl-8">
+          <button onClick={handleLike} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors">
             <Heart className="h-3 w-3" />
-            {likeCount > 0 && likeCount}
+            {likeCount > 0 && <span>{likeCount}</span>}
           </button>
           {!isReply && (
             <button
               onClick={() => setShowReplyForm(!showReplyForm)}
-              className="flex items-center gap-0.5 text-xs text-slate-400 hover:text-[#4A90D9]"
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
             >
               <MessageCircle className="h-3 w-3" />
               답글
             </button>
           )}
-          <button onClick={handleReport} className="flex items-center gap-0.5 text-xs text-slate-400 hover:text-red-500">
+          <button onClick={handleReport} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive transition-colors">
             <Flag className="h-3 w-3" />
           </button>
         </div>
       </div>
 
       {showReplyForm && (
-        <div className="ml-4 mb-2">
+        <div className="ml-8 mb-2">
           <CommentForm
             postId={postId}
             parentId={comment.id}
@@ -94,18 +98,23 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
 }
 
 export default function CommentList({ postId, comments }: CommentListProps) {
+  const totalCount = comments.reduce((acc, c) => acc + 1 + (c.replies?.length || 0), 0);
+
   return (
-    <div className="mt-6">
-      <h3 className="text-sm font-semibold text-slate-700 mb-3">
-        댓글 {comments.reduce((acc, c) => acc + 1 + (c.replies?.length || 0), 0)}개
+    <div className="mt-8">
+      <h3 className="text-sm font-semibold text-foreground mb-1">
+        댓글 <span className="text-primary">{totalCount}</span>개
       </h3>
 
       {comments.length === 0 ? (
-        <p className="text-sm text-slate-400 py-8 text-center">
-          아직 댓글이 없습니다. 첫 댓글을 남겨보세요!
-        </p>
+        <div className="py-12 text-center">
+          <div className="text-3xl mb-2 opacity-30">💬</div>
+          <p className="text-sm text-muted-foreground">
+            아직 댓글이 없습니다. 첫 댓글을 남겨보세요!
+          </p>
+        </div>
       ) : (
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-border/50">
           {comments.map((comment) => (
             <CommentItem key={comment.id} comment={comment} postId={postId} />
           ))}

@@ -5,24 +5,27 @@ import PostList from '@/components/post/PostList';
 import Sidebar from '@/components/layout/Sidebar';
 import AdBanner from '@/components/ads/AdBanner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Flame } from 'lucide-react';
 
-export const revalidate = 60; // 1분 캐시
+export const revalidate = 60;
 
 async function PopularPosts() {
   const posts = await getPopularPosts('24h');
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-bold text-slate-800">🔥 인기글</h2>
+    <div className="animate-fade-in-up">
+      <div className="flex items-center gap-2 mb-4">
+        <div className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center">
+          <Flame className="h-4 w-4 text-accent" />
+        </div>
+        <h2 className="text-lg font-bold text-foreground">인기글</h2>
       </div>
 
       <Tabs defaultValue="24h">
-        <TabsList className="mb-3">
-          <TabsTrigger value="1h" className="text-xs">1시간</TabsTrigger>
-          <TabsTrigger value="6h" className="text-xs">6시간</TabsTrigger>
-          <TabsTrigger value="24h" className="text-xs">24시간</TabsTrigger>
+        <TabsList className="mb-3 bg-secondary/50 p-0.5 rounded-lg">
+          <TabsTrigger value="1h" className="text-xs rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm">1시간</TabsTrigger>
+          <TabsTrigger value="6h" className="text-xs rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm">6시간</TabsTrigger>
+          <TabsTrigger value="24h" className="text-xs rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm">24시간</TabsTrigger>
         </TabsList>
         <TabsContent value="24h">
           <PostList posts={posts} showBoard emptyMessage="아직 인기글이 없습니다." />
@@ -48,31 +51,34 @@ async function LatestByBoard() {
 
   return (
     <div className="space-y-6 mt-8">
-      {boardsWithPosts.map(({ board, posts }) => (
-        <div key={board.id}>
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold text-slate-700">{board.name}</h3>
+      {boardsWithPosts.map(({ board, posts }, index) => (
+        <div key={board.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 80}ms` }}>
+          <div className="flex items-center justify-between mb-2.5">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: board.color }} />
+              {board.name}
+            </h3>
             <Link
               href={`/board/${board.slug}`}
-              className="text-xs text-slate-400 hover:text-[#4A90D9] flex items-center gap-0.5"
+              className="text-xs text-muted-foreground hover:text-primary flex items-center gap-0.5 transition-colors"
             >
               더보기 <ChevronRight className="h-3 w-3" />
             </Link>
           </div>
-          <div className="bg-white rounded-lg border border-slate-200">
+          <div className="card-elevated overflow-hidden">
             {posts.length === 0 ? (
-              <p className="text-sm text-slate-400 py-6 text-center">게시글이 없습니다.</p>
+              <p className="text-sm text-muted-foreground py-6 text-center">게시글이 없습니다.</p>
             ) : (
               posts.map((post) => (
                 <Link
                   key={post.id}
                   href={`/post/${post.id}`}
-                  className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-b-0"
+                  className="flex items-center justify-between px-4 py-2.5 surface-hover border-b border-border/50 last:border-b-0"
                 >
-                  <span className="text-sm text-slate-700 truncate flex-1">
+                  <span className="text-sm text-foreground/90 truncate flex-1">
                     {post.title}
                     {post.comment_count > 0 && (
-                      <span className="text-xs text-[#4A90D9] ml-1">[{post.comment_count}]</span>
+                      <span className="text-xs text-primary ml-1.5 font-medium">[{post.comment_count}]</span>
                     )}
                   </span>
                 </Link>
@@ -85,6 +91,10 @@ async function LatestByBoard() {
   );
 }
 
+function LoadingSkeleton({ height }: { height: string }) {
+  return <div className={`skeleton ${height}`} />;
+}
+
 export default function HomePage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
@@ -92,11 +102,11 @@ export default function HomePage() {
 
       <div className="flex gap-6">
         <div className="flex-1 min-w-0">
-          <Suspense fallback={<div className="animate-pulse bg-slate-100 rounded-lg h-64" />}>
+          <Suspense fallback={<LoadingSkeleton height="h-64" />}>
             <PopularPosts />
           </Suspense>
 
-          <Suspense fallback={<div className="animate-pulse bg-slate-100 rounded-lg h-96 mt-8" />}>
+          <Suspense fallback={<LoadingSkeleton height="h-96" />}>
             <LatestByBoard />
           </Suspense>
         </div>
