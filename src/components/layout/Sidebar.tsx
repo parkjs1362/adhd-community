@@ -7,22 +7,22 @@ interface SidebarProps {
 
 export default function Sidebar({ currentSlug }: SidebarProps) {
   return (
-    <aside className="hidden lg:block w-56 shrink-0">
+    <aside className="hidden lg:block w-52 shrink-0">
       <div className="sticky top-16">
-        <div className="card-elevated p-2">
+        <div className="card-elevated p-1.5">
           <nav className="space-y-0.5">
             {BOARDS.map((board) => (
               <Link
                 key={board.slug}
                 href={`/board/${board.slug}`}
-                className={`flex items-center gap-2.5 px-3 py-2 text-[13px] rounded-xl transition-colors ${
+                className={`flex items-center gap-2.5 px-3 py-2 text-[13px] rounded-lg transition-all duration-200 ${
                   currentSlug === board.slug
                     ? 'bg-primary/8 text-primary font-medium'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                 }`}
               >
                 <span
-                  className="w-2 h-2 rounded-full shrink-0"
+                  className="w-1.5 h-1.5 rounded-full shrink-0"
                   style={{ backgroundColor: board.color }}
                 />
                 {board.name}

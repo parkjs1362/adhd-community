@@ -30,21 +30,21 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
   return (
     <Link
       href={`/post/${post.id}`}
-      className="flex items-center gap-3 px-4 py-3 surface-hover border-b border-border/50 last:border-b-0 group"
+      className="flex items-center gap-3 px-4 py-3.5 surface-hover border-b border-border/40 last:border-b-0 group"
     >
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5 mb-0.5">
+        <div className="flex items-center gap-1.5 mb-1">
           {isHot && (
-            <span className="badge-hot text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+            <span className="badge-hot text-[10px] font-semibold px-1.5 py-0.5 rounded-full leading-none shrink-0">
               HOT
             </span>
           )}
           {isNew && !isHot && (
-            <span className="badge-new text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+            <span className="badge-new text-[10px] font-semibold px-1.5 py-0.5 rounded-full leading-none shrink-0">
               NEW
             </span>
           )}
-          <h3 className="text-[14px] text-card-foreground truncate group-hover:text-primary transition-colors">
+          <h3 className="text-[14px] text-card-foreground truncate group-hover:text-primary transition-colors duration-200 leading-snug">
             {post.title}
           </h3>
           {post.comment_count > 0 && (
@@ -53,15 +53,19 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           {showBoard && post.board && (
-            <span className="font-medium text-foreground/60">{post.board.name}</span>
+            <>
+              <span className="font-medium text-foreground/60">{post.board.name}</span>
+              <span className="text-muted-foreground/30">·</span>
+            </>
           )}
           <span>{post.author_nickname}</span>
+          <span className="text-muted-foreground/30">·</span>
           <span>{timeAgo}</span>
         </div>
       </div>
-      <div className="flex items-center gap-3 text-xs text-muted-foreground shrink-0">
+      <div className="flex items-center gap-2.5 text-[11px] text-muted-foreground/70 shrink-0">
         <span className="flex items-center gap-1">
           <Eye className="h-3 w-3" />
           {post.view_count}

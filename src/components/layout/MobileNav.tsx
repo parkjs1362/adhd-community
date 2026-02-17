@@ -15,20 +15,20 @@ export default function MobileNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 glass border-t sm:hidden">
-      <div className="flex items-center justify-around h-12 max-w-md mx-auto">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 glass border-t sm:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+      <div className="flex items-center justify-around h-14 max-w-md mx-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-0.5 px-4 py-1 transition-colors ${
+              className={`flex flex-col items-center justify-center gap-0.5 w-16 py-1.5 rounded-xl transition-colors duration-200 ${
                 isActive ? 'text-primary' : 'text-muted-foreground'
               }`}
             >
-              <item.icon className="h-5 w-5" />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <item.icon className="h-5 w-5" strokeWidth={isActive ? 2.2 : 1.8} />
+              <span className={`text-[10px] ${isActive ? 'font-semibold' : 'font-medium'}`}>{item.label}</span>
             </Link>
           );
         })}

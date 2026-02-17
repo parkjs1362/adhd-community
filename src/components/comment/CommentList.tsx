@@ -102,8 +102,8 @@ export default function CommentList({ postId, comments }: CommentListProps) {
 
   return (
     <div className="mt-8">
-      <h3 className="text-sm font-semibold text-foreground mb-1">
-        댓글 <span className="text-primary">{totalCount}</span>
+      <h3 className="text-[13px] font-semibold text-foreground mb-2">
+        댓글 <span className="text-primary font-bold">{totalCount}</span>
       </h3>
 
       {comments.length === 0 ? (

@@ -49,7 +49,7 @@ export default function PostForm({ defaultBoard }: PostFormProps) {
           name="board"
           defaultValue={defaultBoard || ''}
           required
-          className="w-full rounded-xl border border-border bg-muted/40 px-3 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+          className="w-full rounded-xl border border-border/60 bg-muted/30 px-3 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all duration-200"
         >
           <option value="" disabled>게시판을 선택하세요</option>
           {BOARDS.map((board) => (
@@ -73,7 +73,7 @@ export default function PostForm({ defaultBoard }: PostFormProps) {
           onChange={(e) => setTitle(e.target.value)}
           maxLength={MAX_TITLE_LENGTH}
           placeholder="제목을 입력하세요"
-          className="bg-muted/40 border-border rounded-xl"
+          className="bg-muted/30 border-border/60 rounded-xl focus:border-primary/30 transition-colors duration-200"
           required
         />
       </div>
@@ -92,11 +92,11 @@ export default function PostForm({ defaultBoard }: PostFormProps) {
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="block text-sm font-medium text-foreground mb-1.5">닉네임 (선택)</label>
-          <Input name="nickname" placeholder="익명" maxLength={20} className="bg-muted/40 border-border rounded-xl" />
+          <Input name="nickname" placeholder="익명" maxLength={20} className="bg-muted/30 border-border/60 rounded-xl focus:border-primary/30 transition-colors duration-200" />
         </div>
         <div>
           <label className="block text-sm font-medium text-foreground mb-1.5">비밀번호 (삭제용)</label>
-          <Input name="password" type="password" placeholder="4자리 이상" minLength={4} className="bg-muted/40 border-border rounded-xl" />
+          <Input name="password" type="password" placeholder="4자리 이상" minLength={4} className="bg-muted/30 border-border/60 rounded-xl focus:border-primary/30 transition-colors duration-200" />
         </div>
       </div>
 

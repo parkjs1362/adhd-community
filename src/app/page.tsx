@@ -14,13 +14,13 @@ async function PopularPosts() {
 
   return (
     <div className="animate-fade-in">
-      <h2 className="text-lg font-semibold text-foreground mb-3 tracking-tight">인기글</h2>
+      <h2 className="text-lg font-bold text-foreground mb-3 tracking-tight">인기글</h2>
 
       <Tabs defaultValue="24h">
-        <TabsList className="mb-3 bg-muted/60 p-0.5 rounded-xl h-8">
-          <TabsTrigger value="1h" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm h-7">1시간</TabsTrigger>
-          <TabsTrigger value="6h" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm h-7">6시간</TabsTrigger>
-          <TabsTrigger value="24h" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm h-7">24시간</TabsTrigger>
+        <TabsList className="mb-3 segmented-control h-8">
+          <TabsTrigger value="1h" className="text-xs segmented-control-item h-7 px-3">1시간</TabsTrigger>
+          <TabsTrigger value="6h" className="text-xs segmented-control-item h-7 px-3">6시간</TabsTrigger>
+          <TabsTrigger value="24h" className="text-xs segmented-control-item h-7 px-3">24시간</TabsTrigger>
         </TabsList>
         <TabsContent value="24h">
           <PostList posts={posts} showBoard emptyMessage="아직 인기글이 없습니다." />
@@ -45,32 +45,32 @@ async function LatestByBoard() {
   const boardsWithPosts = await getLatestPostsByBoard();
 
   return (
-    <div className="space-y-6 mt-8">
+    <div className="space-y-5 mt-8">
       {boardsWithPosts.map(({ board, posts }, index) => (
-        <div key={board.id} className="animate-fade-in" style={{ animationDelay: `${index * 80}ms` }}>
+        <div key={board.id} className="animate-fade-in" style={{ animationDelay: `${index * 60}ms` }}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <h3 className="text-[13px] font-semibold text-foreground flex items-center gap-2">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: board.color }} />
               {board.name}
             </h3>
             <Link
               href={`/board/${board.slug}`}
-              className="text-xs text-muted-foreground hover:text-primary flex items-center gap-0.5 transition-colors"
+              className="text-xs text-muted-foreground hover:text-primary flex items-center gap-0.5 transition-colors duration-200"
             >
               더보기 <ChevronRight className="h-3 w-3" />
             </Link>
           </div>
           <div className="card-elevated overflow-hidden">
             {posts.length === 0 ? (
-              <p className="text-sm text-muted-foreground py-6 text-center">게시글이 없습니다.</p>
+              <p className="text-sm text-muted-foreground py-8 text-center">게시글이 없습니다.</p>
             ) : (
               posts.map((post) => (
                 <Link
                   key={post.id}
                   href={`/post/${post.id}`}
-                  className="flex items-center justify-between px-4 py-2.5 surface-hover border-b border-border/30 last:border-b-0"
+                  className="flex items-center justify-between px-4 py-2.5 surface-hover border-b border-border/30 last:border-b-0 group"
                 >
-                  <span className="text-sm text-foreground/85 truncate flex-1">
+                  <span className="text-[13px] text-foreground/85 truncate flex-1 group-hover:text-foreground transition-colors duration-200">
                     {post.title}
                     {post.comment_count > 0 && (
                       <span className="text-xs text-primary ml-1.5 font-medium">[{post.comment_count}]</span>

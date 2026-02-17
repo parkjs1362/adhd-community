@@ -31,7 +31,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
+      className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-all duration-200"
       aria-label={theme === 'dark' ? '라이트 모드' : '다크 모드'}
     >
       {theme === 'dark' ? (

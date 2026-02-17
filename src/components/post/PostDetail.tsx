@@ -78,7 +78,7 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
       <div className="mb-8">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-1 text-sm text-primary hover:text-primary/80 mb-5 transition-colors"
+          className="flex items-center gap-0.5 text-sm text-muted-foreground hover:text-primary mb-5 transition-colors duration-200 -ml-1"
         >
           <ChevronLeft className="h-4 w-4" />
           뒤로
@@ -90,26 +90,26 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
           </Badge>
         )}
 
-        <h1 className="text-2xl font-bold text-foreground leading-tight mb-3 tracking-tight">
+        <h1 className="text-[22px] sm:text-2xl font-bold text-foreground leading-tight mb-3 tracking-tight">
           {post.title}
         </h1>
 
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground flex-wrap">
           <span className="font-medium text-foreground/70">{post.author_nickname}</span>
-          <span className="text-muted-foreground/40">|</span>
+          <span className="text-muted-foreground/30">·</span>
           <span>{dayjs(post.created_at).format('YYYY.MM.DD HH:mm')}</span>
-          <span className="text-muted-foreground/40">|</span>
+          <span className="text-muted-foreground/30">·</span>
           <span>조회 {post.view_count}</span>
-          <span className="text-muted-foreground/40">|</span>
+          <span className="text-muted-foreground/30">·</span>
           <span>약 {readingTime}분</span>
         </div>
       </div>
 
-      <div className="text-[15px] leading-[1.8] whitespace-pre-wrap break-words mb-8 text-foreground/85">
+      <div className="text-[15px] leading-[1.85] whitespace-pre-wrap break-words mb-8 text-foreground/85">
         {post.content}
       </div>
 
-      <div className="flex items-center justify-between py-4 border-t border-border/50">
+      <div className="flex items-center justify-between py-4 border-t border-border/40">
         <Button
           variant={liked ? 'default' : 'outline'}
           size="sm"

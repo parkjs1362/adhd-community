@@ -50,21 +50,21 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
         <div className="flex-1 min-w-0 animate-fade-in">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h1 className="text-xl font-bold text-foreground flex items-center gap-2.5 tracking-tight">
-                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: board.color }} />
+              <h1 className="text-xl font-bold text-foreground flex items-center gap-2 tracking-tight">
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: board.color }} />
                 {board.name}
               </h1>
-              <p className="text-sm text-muted-foreground mt-0.5">{board.description}</p>
+              <p className="text-[13px] text-muted-foreground mt-0.5">{board.description}</p>
             </div>
             <Link href={`/post/write?board=${slug}`}>
-              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full">
-                <PenSquare className="h-4 w-4 mr-1.5" />
+              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full shadow-sm">
+                <PenSquare className="h-3.5 w-3.5 mr-1.5" />
                 글쓰기
               </Button>
             </Link>
           </div>
 
-          <div className="flex gap-1.5 mb-4">
+          <div className="flex gap-1 mb-4">
             {([
               { value: 'latest', label: '최신순' },
               { value: 'popular', label: '인기순' },
@@ -73,10 +73,10 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
               <Link
                 key={option.value}
                 href={`/board/${slug}?sort=${option.value}`}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
                   sort === option.value
-                    ? 'bg-foreground text-background'
-                    : 'bg-muted text-muted-foreground hover:text-foreground'
+                    ? 'bg-foreground text-background shadow-sm'
+                    : 'bg-muted/70 text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
                 {option.label}
@@ -84,7 +84,7 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
             ))}
           </div>
 
-          <p className="text-xs text-muted-foreground/50 mb-3">
+          <p className="text-[11px] text-muted-foreground/40 mb-3">
             본 게시판의 정보는 의학적 조언이 아닙니다.
           </p>
 
@@ -98,9 +98,9 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
                 <Link
                   key={p}
                   href={`/board/${slug}?page=${p}&sort=${sort}`}
-                  className={`w-8 h-8 flex items-center justify-center text-sm rounded-full transition-colors ${
+                  className={`w-8 h-8 flex items-center justify-center text-[13px] rounded-full transition-all duration-200 ${
                     p === page
-                      ? 'bg-foreground text-background'
+                      ? 'bg-foreground text-background font-medium'
                       : 'text-muted-foreground hover:bg-muted'
                   }`}
                 >
