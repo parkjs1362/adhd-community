@@ -62,7 +62,7 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
           )}
           <span>{post.author_nickname}</span>
           <span className="text-muted-foreground/30">·</span>
-          <span>{timeAgo}</span>
+          <span suppressHydrationWarning>{timeAgo}</span>
         </div>
       </div>
       <div className="flex items-center gap-2.5 text-[11px] text-muted-foreground/70 shrink-0">

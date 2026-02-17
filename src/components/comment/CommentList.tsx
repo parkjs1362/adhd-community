@@ -55,7 +55,7 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
             </span>
           </div>
           <span className="text-sm font-medium text-foreground/85">{comment.author_nickname}</span>
-          <span className="text-xs text-muted-foreground">{dayjs(comment.created_at).fromNow()}</span>
+          <span className="text-xs text-muted-foreground" suppressHydrationWarning>{dayjs(comment.created_at).fromNow()}</span>
         </div>
         <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap pl-8">{comment.content}</p>
         <div className="flex items-center gap-3 mt-1.5 pl-8">
