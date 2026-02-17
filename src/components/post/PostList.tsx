@@ -1,0 +1,34 @@
+import PostCard from './PostCard';
+
+interface PostListProps {
+  posts: Array<{
+    id: string;
+    title: string;
+    author_nickname: string;
+    view_count: number;
+    like_count: number;
+    comment_count: number;
+    created_at: string;
+    board?: { name: string; slug: string } | null;
+  }>;
+  showBoard?: boolean;
+  emptyMessage?: string;
+}
+
+export default function PostList({ posts, showBoard = false, emptyMessage = '게시글이 없습니다.' }: PostListProps) {
+  if (posts.length === 0) {
+    return (
+      <div className="py-16 text-center text-slate-400 text-sm">
+        {emptyMessage}
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-lg border border-slate-200">
+      {posts.map((post) => (
+        <PostCard key={post.id} post={post} showBoard={showBoard} />
+      ))}
+    </div>
+  );
+}
