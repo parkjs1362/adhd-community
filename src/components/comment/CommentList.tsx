@@ -47,10 +47,10 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
 
   return (
     <div className={`${isReply ? 'ml-8 pl-4 border-l-2 border-border/50' : ''}`}>
-      <div className="py-3">
+      <div className="py-4">
         <div className="flex items-center gap-2 mb-1">
-          <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
-            <span className="text-[10px] font-medium text-muted-foreground">
+          <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center">
+            <span className="text-[11px] font-medium text-muted-foreground">
               {comment.author_nickname.charAt(0)}
             </span>
           </div>

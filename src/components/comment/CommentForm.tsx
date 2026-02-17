@@ -41,7 +41,7 @@ export default function CommentForm({ postId, parentId, onSuccess, placeholder =
   };
 
   return (
-    <form action={handleSubmit} className={`${compact ? '' : 'bg-muted/30 rounded-2xl p-4 mt-4'}`}>
+    <form action={handleSubmit} className={`${compact ? '' : 'bg-muted/30 rounded-2xl p-5 mt-4'}`}>
       {error && (
         <p className="text-xs text-destructive mb-2">{error}</p>
       )}

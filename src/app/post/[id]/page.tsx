@@ -38,14 +38,14 @@ export default async function PostPage({ params }: PageProps) {
   ]);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
-      <div className="card-elevated p-6 sm:p-8">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <div className="card-elevated p-8 sm:p-10">
         <PostDetail post={post} initialLiked={liked} />
       </div>
 
       <AdBanner slot="post-bottom" format="rectangle" className="my-6" />
 
-      <div className="card-elevated p-6 sm:p-8">
+      <div className="card-elevated p-8 sm:p-10">
         <CommentList postId={id} comments={comments} />
         <CommentForm postId={id} />
       </div>

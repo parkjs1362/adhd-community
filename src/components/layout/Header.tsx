@@ -27,21 +27,21 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 glass border-b">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-11 sm:h-12">
+        <div className="flex items-center justify-between h-12 sm:h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-[15px] font-bold text-foreground tracking-tight">
+            <span className="text-base font-semibold text-foreground tracking-tight">
               {SITE_NAME}
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-0.5">
+          <nav className="hidden md:flex items-center gap-1">
             {BOARDS.map((board) => (
               <Link
                 key={board.slug}
                 href={`/board/${board.slug}`}
-                className="px-2.5 py-1.5 text-[13px] text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-lg transition-all duration-200"
+                className="px-3 py-2 text-[13px] text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-lg transition-all duration-200"
               >
                 {board.name}
               </Link>
@@ -49,7 +49,7 @@ export default function Header() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-0.5">
+          <div className="flex items-center gap-1">
             <ThemeToggle />
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -82,7 +82,7 @@ export default function Header() {
                 placeholder="검색어를 입력하세요..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 h-10 bg-muted/50 border-0 rounded-xl focus:bg-card focus:shadow-sm transition-all duration-200"
+                className="pl-9 h-10 bg-muted/50 border-0 rounded-2xl focus:bg-card focus:shadow-sm transition-all duration-200"
                 autoFocus
               />
             </div>

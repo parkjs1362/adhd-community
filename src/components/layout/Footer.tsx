@@ -4,7 +4,7 @@ import { SITE_NAME } from '@/lib/constants';
 export default function Footer() {
   return (
     <footer className="border-t border-border/40 mt-auto">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <span className="text-[13px] text-muted-foreground">
             &copy; {new Date().getFullYear()} {SITE_NAME}

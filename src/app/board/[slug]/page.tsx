@@ -43,14 +43,14 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
   const totalPages = Math.ceil(total / 20);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
-      <div className="flex gap-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+      <div className="flex gap-8">
         <Sidebar currentSlug={slug} />
 
         <div className="flex-1 min-w-0 animate-fade-in">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h1 className="text-xl font-bold text-foreground flex items-center gap-2 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2 tracking-tight">
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: board.color }} />
                 {board.name}
               </h1>
@@ -73,7 +73,7 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
               <Link
                 key={option.value}
                 href={`/board/${slug}?sort=${option.value}`}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
+                className={`px-3.5 py-2 text-xs font-medium rounded-full transition-all duration-200 ${
                   sort === option.value
                     ? 'bg-foreground text-background shadow-sm'
                     : 'bg-muted/70 text-muted-foreground hover:text-foreground hover:bg-muted'

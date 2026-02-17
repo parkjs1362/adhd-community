@@ -30,7 +30,7 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
   return (
     <Link
       href={`/post/${post.id}`}
-      className="flex items-center gap-3 px-4 py-3.5 surface-hover border-b border-border/40 last:border-b-0 group"
+      className="flex items-center gap-3 px-5 py-4 surface-hover border-b border-border/40 last:border-b-0 group"
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 mb-1">
@@ -44,7 +44,7 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
               NEW
             </span>
           )}
-          <h3 className="text-[14px] text-card-foreground truncate group-hover:text-primary transition-colors duration-200 leading-snug">
+          <h3 className="text-[15px] text-card-foreground truncate group-hover:text-primary transition-colors duration-200 leading-snug">
             {post.title}
           </h3>
           {post.comment_count > 0 && (
@@ -53,7 +53,7 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
             </span>
           )}
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+        <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
           {showBoard && post.board && (
             <>
               <span className="font-medium text-foreground/60">{post.board.name}</span>

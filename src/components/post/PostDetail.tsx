@@ -90,7 +90,7 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
           </Badge>
         )}
 
-        <h1 className="text-[22px] sm:text-2xl font-bold text-foreground leading-tight mb-3 tracking-tight">
+        <h1 className="text-2xl sm:text-[28px] font-bold text-foreground leading-tight mb-3 tracking-tight">
           {post.title}
         </h1>
 
@@ -105,11 +105,11 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
         </div>
       </div>
 
-      <div className="text-[15px] leading-[1.85] whitespace-pre-wrap break-words mb-8 text-foreground/85">
+      <div className="text-base leading-[1.9] whitespace-pre-wrap break-words mb-10 text-foreground/85">
         {post.content}
       </div>
 
-      <div className="flex items-center justify-between py-4 border-t border-border/40">
+      <div className="flex items-center justify-between py-5 border-t border-border/40">
         <Button
           variant={liked ? 'default' : 'outline'}
           size="sm"

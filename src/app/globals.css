@@ -49,7 +49,7 @@
 
 /* ===== LIGHT THEME ===== */
 :root {
-  --radius: 0.875rem;
+  --radius: 1rem;
   --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
 
   --background: #F5F5F7;
@@ -162,7 +162,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "ss01", "ss02";
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
   }
 
   ::selection {

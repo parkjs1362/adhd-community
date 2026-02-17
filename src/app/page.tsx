@@ -14,7 +14,7 @@ async function PopularPosts() {
 
   return (
     <div className="animate-fade-in">
-      <h2 className="text-lg font-bold text-foreground mb-3 tracking-tight">인기글</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3 tracking-tight">인기글</h2>
 
       <Tabs defaultValue="24h">
         <TabsList className="mb-3 segmented-control h-8">
@@ -45,7 +45,7 @@ async function LatestByBoard() {
   const boardsWithPosts = await getLatestPostsByBoard();
 
   return (
-    <div className="space-y-5 mt-8">
+    <div className="space-y-6 mt-8">
       {boardsWithPosts.map(({ board, posts }, index) => (
         <div key={board.id} className="animate-fade-in" style={{ animationDelay: `${index * 60}ms` }}>
           <div className="flex items-center justify-between mb-2">
@@ -68,7 +68,7 @@ async function LatestByBoard() {
                 <Link
                   key={post.id}
                   href={`/post/${post.id}`}
-                  className="flex items-center justify-between px-4 py-2.5 surface-hover border-b border-border/30 last:border-b-0 group"
+                  className="flex items-center justify-between px-5 py-3 surface-hover border-b border-border/30 last:border-b-0 group"
                 >
                   <span className="text-[13px] text-foreground/85 truncate flex-1 group-hover:text-foreground transition-colors duration-200">
                     {post.title}
@@ -92,10 +92,10 @@ function LoadingSkeleton({ height }: { height: string }) {
 
 export default function HomePage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
       <AdBanner slot="main-top" format="horizontal" className="mb-6" />
 
-      <div className="flex gap-6">
+      <div className="flex gap-8">
         <div className="flex-1 min-w-0">
           <Suspense fallback={<LoadingSkeleton height="h-64" />}>
             <PopularPosts />
