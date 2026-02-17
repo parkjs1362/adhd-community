@@ -10,6 +10,9 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} {SITE_NAME}
           </span>
           <div className="flex gap-6 text-[13px] text-muted-foreground">
+            <Link href="/about" className="hover:text-foreground transition-colors duration-200">
+              소개
+            </Link>
             <Link href="/terms" className="hover:text-foreground transition-colors duration-200">
               이용약관
             </Link>

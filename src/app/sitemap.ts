@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...boardUrls,
     {
+      url: `${SITE_URL}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
       url: `${SITE_URL}/terms`,
       lastModified: new Date(),
       changeFrequency: 'monthly',

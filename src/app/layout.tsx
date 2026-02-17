@@ -3,6 +3,7 @@ import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MobileNav from '@/components/layout/MobileNav';
+import CookieConsent from '@/components/CookieConsent';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -38,6 +39,13 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
+        {process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
+            crossOrigin="anonymous"
+          />
+        )}
         {/* Theme flash prevention - hardcoded static string, safe from XSS */}
         <script
           dangerouslySetInnerHTML={{
@@ -52,6 +60,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <MobileNav />
+        <CookieConsent />
       </body>
     </html>
   );
