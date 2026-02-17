@@ -5,7 +5,7 @@ import PostList from '@/components/post/PostList';
 import Sidebar from '@/components/layout/Sidebar';
 import AdBanner from '@/components/ads/AdBanner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ChevronRight, Flame } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -13,19 +13,14 @@ async function PopularPosts() {
   const posts = await getPopularPosts('24h');
 
   return (
-    <div className="animate-fade-in-up">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center">
-          <Flame className="h-4 w-4 text-accent" />
-        </div>
-        <h2 className="text-lg font-bold text-foreground">인기글</h2>
-      </div>
+    <div className="animate-fade-in">
+      <h2 className="text-lg font-semibold text-foreground mb-3 tracking-tight">인기글</h2>
 
       <Tabs defaultValue="24h">
-        <TabsList className="mb-3 bg-secondary/50 p-0.5 rounded-lg">
-          <TabsTrigger value="1h" className="text-xs rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm">1시간</TabsTrigger>
-          <TabsTrigger value="6h" className="text-xs rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm">6시간</TabsTrigger>
-          <TabsTrigger value="24h" className="text-xs rounded-md data-[state=active]:bg-card data-[state=active]:shadow-sm">24시간</TabsTrigger>
+        <TabsList className="mb-3 bg-muted/60 p-0.5 rounded-xl h-8">
+          <TabsTrigger value="1h" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm h-7">1시간</TabsTrigger>
+          <TabsTrigger value="6h" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm h-7">6시간</TabsTrigger>
+          <TabsTrigger value="24h" className="text-xs rounded-lg data-[state=active]:bg-card data-[state=active]:shadow-sm h-7">24시간</TabsTrigger>
         </TabsList>
         <TabsContent value="24h">
           <PostList posts={posts} showBoard emptyMessage="아직 인기글이 없습니다." />
@@ -52,8 +47,8 @@ async function LatestByBoard() {
   return (
     <div className="space-y-6 mt-8">
       {boardsWithPosts.map(({ board, posts }, index) => (
-        <div key={board.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 80}ms` }}>
-          <div className="flex items-center justify-between mb-2.5">
+        <div key={board.id} className="animate-fade-in" style={{ animationDelay: `${index * 80}ms` }}>
+          <div className="flex items-center justify-between mb-2">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: board.color }} />
               {board.name}
@@ -73,9 +68,9 @@ async function LatestByBoard() {
                 <Link
                   key={post.id}
                   href={`/post/${post.id}`}
-                  className="flex items-center justify-between px-4 py-2.5 surface-hover border-b border-border/50 last:border-b-0"
+                  className="flex items-center justify-between px-4 py-2.5 surface-hover border-b border-border/30 last:border-b-0"
                 >
-                  <span className="text-sm text-foreground/90 truncate flex-1">
+                  <span className="text-sm text-foreground/85 truncate flex-1">
                     {post.title}
                     {post.comment_count > 0 && (
                       <span className="text-xs text-primary ml-1.5 font-medium">[{post.comment_count}]</span>
@@ -97,7 +92,7 @@ function LoadingSkeleton({ height }: { height: string }) {
 
 export default function HomePage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
       <AdBanner slot="main-top" format="horizontal" className="mb-6" />
 
       <div className="flex gap-6">

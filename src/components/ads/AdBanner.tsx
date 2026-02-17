@@ -27,7 +27,7 @@ export default function AdBanner({ slot, format = 'auto', responsive = true, cla
   if (!isProduction || !clientId) {
     return (
       <div
-        className={`bg-secondary/50 border border-dashed border-border rounded-xl flex items-center justify-center text-muted-foreground/40 text-xs font-medium ${className}`}
+        className={`bg-muted/50 border border-dashed border-border rounded-2xl flex items-center justify-center text-muted-foreground/30 text-xs ${className}`}
         style={{ minHeight: format === 'rectangle' ? 250 : 90 }}
       >
         AD

@@ -22,8 +22,8 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button className="relative w-9 h-9 rounded-full flex items-center justify-center" aria-label="테마 전환">
-        <span className="w-5 h-5" />
+      <button className="w-8 h-8 rounded-full flex items-center justify-center" aria-label="Theme">
+        <span className="w-4 h-4" />
       </button>
     );
   }
@@ -31,23 +31,14 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="relative w-9 h-9 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200 active:scale-90"
-      aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+      className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200"
+      aria-label={theme === 'dark' ? '라이트 모드' : '다크 모드'}
     >
-      <Sun
-        className={`h-[18px] w-[18px] absolute transition-all duration-300 ${
-          theme === 'dark'
-            ? 'rotate-0 scale-100 opacity-100'
-            : '-rotate-90 scale-0 opacity-0'
-        }`}
-      />
-      <Moon
-        className={`h-[18px] w-[18px] absolute transition-all duration-300 ${
-          theme === 'light'
-            ? 'rotate-0 scale-100 opacity-100'
-            : 'rotate-90 scale-0 opacity-0'
-        }`}
-      />
+      {theme === 'dark' ? (
+        <Sun className="h-4 w-4" />
+      ) : (
+        <Moon className="h-4 w-4" />
+      )}
     </button>
   );
 }

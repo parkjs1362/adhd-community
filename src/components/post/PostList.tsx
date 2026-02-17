@@ -19,7 +19,6 @@ export default function PostList({ posts, showBoard = false, emptyMessage = '게
   if (posts.length === 0) {
     return (
       <div className="card-elevated py-16 text-center">
-        <div className="text-4xl mb-3 opacity-30">📝</div>
         <p className="text-sm text-muted-foreground">{emptyMessage}</p>
       </div>
     );

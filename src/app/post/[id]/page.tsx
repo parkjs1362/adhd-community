@@ -38,7 +38,7 @@ export default async function PostPage({ params }: PageProps) {
   ]);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
       <div className="card-elevated p-6 sm:p-8">
         <PostDetail post={post} initialLiked={liked} />
       </div>

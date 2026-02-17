@@ -41,7 +41,7 @@ export default function CommentForm({ postId, parentId, onSuccess, placeholder =
   };
 
   return (
-    <form action={handleSubmit} className={`${compact ? '' : 'bg-secondary/50 rounded-xl p-4 mt-4 border border-border/50'}`}>
+    <form action={handleSubmit} className={`${compact ? '' : 'bg-muted/40 rounded-2xl p-4 mt-4'}`}>
       {error && (
         <p className="text-xs text-destructive mb-2">{error}</p>
       )}
@@ -49,21 +49,21 @@ export default function CommentForm({ postId, parentId, onSuccess, placeholder =
         name="content"
         rows={compact ? 2 : 3}
         placeholder={placeholder}
-        className="mb-2 bg-card border-border"
+        className="mb-2 bg-card border-border rounded-xl"
         required
       />
       <div className="flex items-center justify-between">
         <Input
           name="nickname"
           placeholder="닉네임 (선택)"
-          className="w-32 h-8 text-sm bg-card border-border"
+          className="w-32 h-8 text-sm bg-card border-border rounded-xl"
           maxLength={20}
         />
         <Button
           type="submit"
           size="sm"
           disabled={isSubmitting}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
         >
           {isSubmitting ? '작성 중...' : '등록'}
         </Button>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Heart, Flag, Trash2, ArrowLeft } from 'lucide-react';
+import { Heart, Flag, Trash2, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toggleLike } from '@/app/actions/likes';
@@ -74,68 +74,62 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
   const readingTime = Math.max(1, Math.ceil(post.content.length / 500));
 
   return (
-    <article className="animate-fade-in-up">
-      {/* Header */}
+    <article className="animate-fade-in">
       <div className="mb-8">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
+          className="flex items-center gap-1 text-sm text-primary hover:text-primary/80 mb-5 transition-colors"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4" />
           뒤로
         </button>
 
         {post.board && (
-          <Badge variant="secondary" className="mb-3 text-xs font-medium bg-secondary text-secondary-foreground">
+          <Badge variant="secondary" className="mb-3 text-xs font-medium rounded-full bg-muted text-muted-foreground">
             {post.board.name}
           </Badge>
         )}
 
-        <h1 className="text-xl font-bold text-foreground leading-tight mb-3">
+        <h1 className="text-2xl font-bold text-foreground leading-tight mb-3 tracking-tight">
           {post.title}
         </h1>
 
-        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-          <span className="font-medium text-foreground/80">{post.author_nickname}</span>
-          <span className="w-1 h-1 rounded-full bg-border" />
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <span className="font-medium text-foreground/70">{post.author_nickname}</span>
+          <span className="text-muted-foreground/40">|</span>
           <span>{dayjs(post.created_at).format('YYYY.MM.DD HH:mm')}</span>
-          <span className="w-1 h-1 rounded-full bg-border" />
+          <span className="text-muted-foreground/40">|</span>
           <span>조회 {post.view_count}</span>
-          <Badge variant="outline" className="text-[10px] text-muted-foreground border-border">
-            약 {readingTime}분
-          </Badge>
+          <span className="text-muted-foreground/40">|</span>
+          <span>약 {readingTime}분</span>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="prose prose-neutral dark:prose-invert max-w-none text-[15px] leading-[1.8] whitespace-pre-wrap break-words mb-8 text-foreground/90">
+      <div className="text-[15px] leading-[1.8] whitespace-pre-wrap break-words mb-8 text-foreground/85">
         {post.content}
       </div>
 
-      {/* Actions */}
-      <div className="flex items-center justify-between py-4 border-t border-b border-border">
-        <div className="flex items-center gap-2">
-          <Button
-            variant={liked ? 'default' : 'outline'}
-            size="sm"
-            onClick={handleLike}
-            className={`rounded-lg transition-all ${
-              liked
-                ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
-                : 'border-border text-muted-foreground hover:text-primary hover:border-primary/30'
-            }`}
-          >
-            <Heart className={`h-4 w-4 mr-1.5 ${liked ? 'fill-current' : ''}`} />
-            공감 {likeCount}
-          </Button>
-        </div>
+      <div className="flex items-center justify-between py-4 border-t border-border/50">
+        <Button
+          variant={liked ? 'default' : 'outline'}
+          size="sm"
+          onClick={handleLike}
+          className={`rounded-full transition-colors ${
+            liked
+              ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
+              : 'text-muted-foreground hover:text-primary'
+          }`}
+        >
+          <Heart className={`h-4 w-4 mr-1.5 ${liked ? 'fill-current' : ''}`} />
+          공감 {likeCount}
+        </Button>
         <div className="flex items-center gap-1">
           <Button
             variant="ghost"
             size="sm"
             onClick={handleReport}
             disabled={isReporting}
-            className="text-muted-foreground hover:text-destructive rounded-lg"
+            className="text-muted-foreground hover:text-destructive rounded-full"
           >
             <Flag className="h-4 w-4 mr-1" />
             신고
@@ -145,7 +139,7 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
             size="sm"
             onClick={handleDelete}
             disabled={isDeleting}
-            className="text-muted-foreground hover:text-destructive rounded-lg"
+            className="text-muted-foreground hover:text-destructive rounded-full"
           >
             <Trash2 className="h-4 w-4 mr-1" />
             삭제

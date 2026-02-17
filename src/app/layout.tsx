@@ -32,21 +32,20 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
-        {/* Pretendard Variable Font */}
         <link
           rel="stylesheet"
           as="style"
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
-        {/* Prevent theme flash - static string, no user input */}
+        {/* Theme flash prevention - hardcoded static string, safe from XSS */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
           }}
         />
       </head>
-      <body className="noise-bg antialiased min-h-screen flex flex-col">
+      <body className="antialiased min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 pb-16 sm:pb-0">
           {children}

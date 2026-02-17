@@ -47,18 +47,18 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
 
   return (
     <div className={`${isReply ? 'ml-8 pl-4 border-l-2 border-border/50' : ''}`}>
-      <div className="py-3.5">
-        <div className="flex items-center gap-2 mb-1.5">
-          <div className="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
-            <span className="text-[10px] font-medium text-secondary-foreground">
+      <div className="py-3">
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
+            <span className="text-[10px] font-medium text-muted-foreground">
               {comment.author_nickname.charAt(0)}
             </span>
           </div>
-          <span className="text-sm font-medium text-foreground/90">{comment.author_nickname}</span>
+          <span className="text-sm font-medium text-foreground/85">{comment.author_nickname}</span>
           <span className="text-xs text-muted-foreground">{dayjs(comment.created_at).fromNow()}</span>
         </div>
         <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap pl-8">{comment.content}</p>
-        <div className="flex items-center gap-3 mt-2 pl-8">
+        <div className="flex items-center gap-3 mt-1.5 pl-8">
           <button onClick={handleLike} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors">
             <Heart className="h-3 w-3" />
             {likeCount > 0 && <span>{likeCount}</span>}
@@ -103,12 +103,11 @@ export default function CommentList({ postId, comments }: CommentListProps) {
   return (
     <div className="mt-8">
       <h3 className="text-sm font-semibold text-foreground mb-1">
-        댓글 <span className="text-primary">{totalCount}</span>개
+        댓글 <span className="text-primary">{totalCount}</span>
       </h3>
 
       {comments.length === 0 ? (
         <div className="py-12 text-center">
-          <div className="text-3xl mb-2 opacity-30">💬</div>
           <p className="text-sm text-muted-foreground">
             아직 댓글이 없습니다. 첫 댓글을 남겨보세요!
           </p>

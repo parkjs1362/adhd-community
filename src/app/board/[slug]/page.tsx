@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPostsByBoard } from '@/app/actions/posts';
@@ -44,29 +43,27 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
   const totalPages = Math.ceil(total / 20);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
       <div className="flex gap-6">
         <Sidebar currentSlug={slug} />
 
-        <div className="flex-1 min-w-0 animate-fade-in-up">
-          {/* Board Header */}
+        <div className="flex-1 min-w-0 animate-fade-in">
           <div className="flex items-center justify-between mb-5">
             <div>
-              <h1 className="text-xl font-bold text-foreground flex items-center gap-2.5">
-                <span className="w-3 h-3 rounded-full ring-2 ring-offset-2 ring-offset-background" style={{ backgroundColor: board.color, boxShadow: `0 0 0 2px ${board.color}30` }} />
+              <h1 className="text-xl font-bold text-foreground flex items-center gap-2.5 tracking-tight">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: board.color }} />
                 {board.name}
               </h1>
-              <p className="text-sm text-muted-foreground mt-1">{board.description}</p>
+              <p className="text-sm text-muted-foreground mt-0.5">{board.description}</p>
             </div>
             <Link href={`/post/write?board=${slug}`}>
-              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg">
+              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full">
                 <PenSquare className="h-4 w-4 mr-1.5" />
                 글쓰기
               </Button>
             </Link>
           </div>
 
-          {/* Sort Tabs */}
           <div className="flex gap-1.5 mb-4">
             {([
               { value: 'latest', label: '최신순' },
@@ -76,10 +73,10 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
               <Link
                 key={option.value}
                 href={`/board/${slug}?sort=${option.value}`}
-                className={`px-3.5 py-1.5 text-xs font-medium rounded-full transition-all ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
                   sort === option.value
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80'
+                    ? 'bg-foreground text-background'
+                    : 'bg-muted text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {option.label}
@@ -87,27 +84,24 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
             ))}
           </div>
 
-          {/* Disclaimer */}
-          <div className="text-xs text-muted-foreground/60 mb-3 px-1 flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded-full bg-secondary flex items-center justify-center text-[8px]">i</span>
+          <p className="text-xs text-muted-foreground/50 mb-3">
             본 게시판의 정보는 의학적 조언이 아닙니다.
-          </div>
+          </p>
 
           <PostList posts={posts} emptyMessage="아직 게시글이 없습니다. 첫 글을 작성해보세요!" />
 
           <AdBanner slot="board-bottom" format="rectangle" className="mt-6" />
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center gap-1 mt-6">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                 <Link
                   key={p}
                   href={`/board/${slug}?page=${p}&sort=${sort}`}
-                  className={`w-8 h-8 flex items-center justify-center text-sm rounded-lg transition-all ${
+                  className={`w-8 h-8 flex items-center justify-center text-sm rounded-full transition-colors ${
                     p === page
-                      ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'text-muted-foreground hover:bg-secondary'
+                      ? 'bg-foreground text-background'
+                      : 'text-muted-foreground hover:bg-muted'
                   }`}
                 >
                   {p}

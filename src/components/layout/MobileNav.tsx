@@ -16,23 +16,18 @@ export default function MobileNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 glass border-t sm:hidden">
-      <div className="flex items-center justify-around h-14 max-w-md mx-auto">
+      <div className="flex items-center justify-around h-12 max-w-md mx-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`relative flex flex-col items-center gap-0.5 px-4 py-1.5 rounded-xl transition-all ${
-                isActive
-                  ? 'text-primary'
-                  : 'text-muted-foreground'
+              className={`flex flex-col items-center gap-0.5 px-4 py-1 transition-colors ${
+                isActive ? 'text-primary' : 'text-muted-foreground'
               }`}
             >
-              {isActive && (
-                <span className="absolute -top-0.5 w-4 h-0.5 rounded-full bg-primary" />
-              )}
-              <item.icon className={`h-5 w-5 transition-transform ${isActive ? 'scale-105' : ''}`} />
+              <item.icon className="h-5 w-5" />
               <span className="text-[10px] font-medium">{item.label}</span>
             </Link>
           );
