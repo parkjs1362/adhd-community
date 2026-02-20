@@ -133,17 +133,29 @@ export async function getAdminPosts(page: number = 1, showHidden: boolean = fals
   const PAGE_SIZE = 20;
   const from = (page - 1) * PAGE_SIZE;
 
-  let query = admin
-    .from('posts')
-    .select('id, title, board_id, board:boards(name, slug), created_at, view_count, is_hidden', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range(from, from + PAGE_SIZE - 1);
+  const [boardsRes, postsRes] = await Promise.all([
+    admin.from('boards').select('id, name, slug'),
+    (async () => {
+      let query = admin
+        .from('posts')
+        .select('id, title, board_id, created_at, view_count, is_hidden', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(from, from + PAGE_SIZE - 1);
+      if (!showHidden) query = query.eq('is_hidden', false);
+      return query;
+    })(),
+  ]);
 
-  if (!showHidden) {
-    query = query.eq('is_hidden', false);
-  }
+  if (postsRes.error) return { posts: [], total: 0 };
 
-  const { data, count, error } = await query;
-  if (error) return { posts: [], total: 0 };
-  return { posts: data ?? [], total: count ?? 0 };
+  const boardMap = Object.fromEntries(
+    (boardsRes.data ?? []).map((b) => [b.id, b.name])
+  );
+
+  const posts = (postsRes.data ?? []).map((p) => ({
+    ...p,
+    boardName: boardMap[p.board_id] ?? p.board_id,
+  }));
+
+  return { posts, total: postsRes.count ?? 0 };
 }
