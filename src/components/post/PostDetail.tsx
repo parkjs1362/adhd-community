@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toggleLike } from '@/app/actions/likes';
 import { deletePost } from '@/app/actions/posts';
-import { reportContent } from '@/app/actions/reports';
+import ReportDialog from '@/components/ui/ReportDialog';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -32,7 +32,6 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
   const router = useRouter();
   const [liked, setLiked] = useState(initialLiked);
   const [likeCount, setLikeCount] = useState(post.like_count);
-  const [isReporting, setIsReporting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleLike = async () => {
@@ -41,19 +40,6 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
       const isLiked = result.liked;
       setLiked(isLiked);
       setLikeCount(prev => isLiked ? prev + 1 : prev - 1);
-    }
-  };
-
-  const handleReport = async () => {
-    const reason = prompt('신고 사유를 입력해주세요:');
-    if (!reason) return;
-    setIsReporting(true);
-    const result = await reportContent('post', post.id, reason);
-    setIsReporting(false);
-    if ('error' in result) {
-      alert(result.error);
-    } else {
-      alert('신고가 접수되었습니다.');
     }
   };
 
@@ -124,16 +110,20 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
           공감 {likeCount}
         </Button>
         <div className="flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleReport}
-            disabled={isReporting}
-            className="text-muted-foreground hover:text-destructive rounded-full"
-          >
-            <Flag className="h-4 w-4 mr-1" />
-            신고
-          </Button>
+          <ReportDialog
+            targetType="post"
+            targetId={post.id}
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-destructive rounded-full"
+              >
+                <Flag className="h-4 w-4 mr-1" />
+                신고
+              </Button>
+            }
+          />
           <Button
             variant="ghost"
             size="sm"
