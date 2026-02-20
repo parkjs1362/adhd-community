@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Heart, MessageCircle, Flag } from 'lucide-react';
 import { toggleLike } from '@/app/actions/likes';
-import { deleteComment } from '@/app/actions/comments';
+import { deleteComment, updateComment } from '@/app/actions/comments';
 import ReportDialog from '@/components/ui/ReportDialog';
 import CommentForm from './CommentForm';
 import dayjs from 'dayjs';
@@ -32,6 +32,9 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
   const [likeCount, setLikeCount] = useState(comment.like_count);
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(comment.content);
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleLike = async () => {
     const result = await toggleLike('comment', comment.id);
@@ -52,6 +55,18 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
     }
   };
 
+  const handleSave = async () => {
+    setIsSaving(true);
+    const result = await updateComment(comment.id, editContent);
+    setIsSaving(false);
+    if ('error' in result) {
+      alert(result.error);
+    } else {
+      setIsEditing(false);
+      window.location.reload();
+    }
+  };
+
   return (
     <div className={`${isReply ? 'ml-8 pl-4 border-l-2 border-border/50' : ''}`}>
       <div className="py-4">
@@ -64,7 +79,33 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
           <span className="text-sm font-medium text-foreground/85">{comment.author_nickname}</span>
           <span className="text-xs text-muted-foreground" suppressHydrationWarning>{dayjs(comment.created_at).fromNow()}</span>
         </div>
-        <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap pl-8">{comment.content}</p>
+        {isEditing ? (
+          <div className="mt-2 pl-8">
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              className="w-full text-sm rounded-xl border border-border px-3 py-2 resize-none bg-background focus:outline-none focus:ring-2 focus:ring-ring"
+              rows={3}
+            />
+            <div className="flex gap-2 mt-1.5">
+              <button
+                onClick={handleSave}
+                disabled={isSaving}
+                className="text-xs text-primary hover:text-primary/80 transition-colors"
+              >
+                {isSaving ? '저장 중...' : '저장'}
+              </button>
+              <button
+                onClick={() => { setIsEditing(false); setEditContent(comment.content); }}
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-wrap pl-8">{comment.content}</p>
+        )}
         <div className="flex items-center gap-3 mt-1.5 pl-8">
           <button onClick={handleLike} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors">
             <Heart className="h-3 w-3" />
@@ -88,6 +129,12 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
               </button>
             }
           />
+          <button
+            onClick={() => setIsEditing(true)}
+            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+          >
+            수정
+          </button>
           {!isConfirmingDelete ? (
             <button
               onClick={() => setIsConfirmingDelete(true)}

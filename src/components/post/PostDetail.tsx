@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Heart, Flag, Trash2, ChevronLeft } from 'lucide-react';
+import { Heart, Flag, Trash2, ChevronLeft, Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toggleLike } from '@/app/actions/likes';
 import ReportDialog from '@/components/ui/ReportDialog';
 import DeleteDialog from '@/components/ui/DeleteDialog';
+import EditPostDialog from '@/components/ui/EditPostDialog';
+import ShareButton from '@/components/ui/ShareButton';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -81,20 +83,38 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
       </div>
 
       <div className="flex items-center justify-between py-5 border-t border-border/40">
-        <Button
-          variant={liked ? 'default' : 'outline'}
-          size="sm"
-          onClick={handleLike}
-          className={`rounded-full transition-colors ${
-            liked
-              ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
-              : 'text-muted-foreground hover:text-primary'
-          }`}
-        >
-          <Heart className={`h-4 w-4 mr-1.5 ${liked ? 'fill-current' : ''}`} />
-          공감 {likeCount}
-        </Button>
         <div className="flex items-center gap-1">
+          <Button
+            variant={liked ? 'default' : 'outline'}
+            size="sm"
+            onClick={handleLike}
+            className={`rounded-full transition-colors ${
+              liked
+                ? 'bg-primary hover:bg-primary/90 text-primary-foreground'
+                : 'text-muted-foreground hover:text-primary'
+            }`}
+          >
+            <Heart className={`h-4 w-4 mr-1.5 ${liked ? 'fill-current' : ''}`} />
+            공감 {likeCount}
+          </Button>
+          <ShareButton />
+        </div>
+        <div className="flex items-center gap-1">
+          <EditPostDialog
+            postId={post.id}
+            currentTitle={post.title}
+            currentContent={post.content}
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-primary rounded-full"
+              >
+                <Pencil className="h-4 w-4 mr-1" />
+                수정
+              </Button>
+            }
+          />
           <ReportDialog
             targetType="post"
             targetId={post.id}

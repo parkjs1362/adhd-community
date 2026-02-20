@@ -22,6 +22,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: post.title,
       description: post.content.slice(0, 100),
+      type: 'article',
+      images: [{
+        url: `/api/og?title=${encodeURIComponent(post.title)}&board=${encodeURIComponent((post.board as { name?: string } | null)?.name || '')}`,
+        width: 1200,
+        height: 630,
+        alt: post.title,
+      }],
     },
   };
 }

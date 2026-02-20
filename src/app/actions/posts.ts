@@ -194,6 +194,30 @@ export async function getLatestPostsByBoard() {
   return results;
 }
 
+export async function updatePost(id: string, title: string, content: string, password: string) {
+  const supabase = await createClient();
+  const sanitizedTitle = sanitize(title.trim());
+  const sanitizedContent = sanitize(content.trim());
+
+  if (!sanitizedTitle || !sanitizedContent) return { error: '제목과 내용을 입력해주세요.' };
+  if (sanitizedTitle.length > 200) return { error: '제목은 200자 이하로 입력해주세요.' };
+
+  const passwordHash = createHash('sha256').update(password).digest('hex').slice(0, 16);
+  const { data } = await supabase.from('posts').select('password_hash').eq('id', id).single();
+
+  if (!data || data.password_hash !== passwordHash) {
+    return { error: '비밀번호가 일치하지 않습니다.' };
+  }
+
+  const { error } = await supabase
+    .from('posts')
+    .update({ title: sanitizedTitle, content: sanitizedContent, updated_at: new Date().toISOString() })
+    .eq('id', id);
+
+  if (error) return { error: '수정에 실패했습니다.' };
+  return { success: true };
+}
+
 export async function deletePost(id: string, password: string) {
   const supabase = await createClient();
   const passwordHash = createHash('sha256').update(password).digest('hex').slice(0, 16);

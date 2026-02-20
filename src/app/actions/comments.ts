@@ -78,6 +78,28 @@ export async function createComment(formData: FormData) {
   return { success: true };
 }
 
+export async function updateComment(id: string, content: string) {
+  const { createClient: createAdminClient } = await import('@supabase/supabase-js');
+  const admin = createAdminClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  const authorHash = await getClientHash();
+  const sanitizedContent = sanitize(content.trim());
+
+  if (!sanitizedContent) return { error: '내용을 입력해주세요.' };
+  if (sanitizedContent.length > 1000) return { error: '댓글은 1000자 이하입니다.' };
+
+  const { data } = await admin.from('comments').select('author_hash').eq('id', id).single();
+  if (!data || data.author_hash !== authorHash) {
+    return { error: '본인이 작성한 댓글만 수정할 수 있습니다.' };
+  }
+
+  await admin.from('comments').update({ content: sanitizedContent }).eq('id', id);
+  return { success: true };
+}
+
 export async function deleteComment(id: string) {
   const { createClient: createAdminClient } = await import('@supabase/supabase-js');
   const admin = createAdminClient(
