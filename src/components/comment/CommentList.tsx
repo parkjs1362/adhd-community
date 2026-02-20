@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Heart, MessageCircle, Flag } from 'lucide-react';
 import { toggleLike } from '@/app/actions/likes';
-import { reportContent } from '@/app/actions/reports';
+import ReportDialog from '@/components/ui/ReportDialog';
 import CommentForm from './CommentForm';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -37,14 +37,6 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
     }
   };
 
-  const handleReport = async () => {
-    const reason = prompt('신고 사유를 입력해주세요:');
-    if (!reason) return;
-    const result = await reportContent('comment', comment.id, reason);
-    if ('error' in result) alert(result.error);
-    else alert('신고가 접수되었습니다.');
-  };
-
   return (
     <div className={`${isReply ? 'ml-8 pl-4 border-l-2 border-border/50' : ''}`}>
       <div className="py-4">
@@ -72,9 +64,15 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
               답글
             </button>
           )}
-          <button onClick={handleReport} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive transition-colors">
-            <Flag className="h-3 w-3" />
-          </button>
+          <ReportDialog
+            targetType="comment"
+            targetId={comment.id}
+            trigger={
+              <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive transition-colors">
+                <Flag className="h-3 w-3" />
+              </button>
+            }
+          />
         </div>
       </div>
 
