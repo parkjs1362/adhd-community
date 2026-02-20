@@ -64,7 +64,7 @@ export default function ReportDialog({ targetType, targetId, trigger }: ReportDi
               size="sm"
               variant="outline"
               className="mt-4 rounded-full"
-              onClick={() => setOpen(false)}
+              onClick={() => handleOpenChange(false)}
             >
               닫기
             </Button>
@@ -103,7 +103,7 @@ export default function ReportDialog({ targetType, targetId, trigger }: ReportDi
                 variant="ghost"
                 size="sm"
                 className="rounded-full"
-                onClick={() => setOpen(false)}
+                onClick={() => handleOpenChange(false)}
               >
                 취소
               </Button>

@@ -16,11 +16,13 @@ export async function searchPosts(
     return { posts: [], total: 0 };
   }
 
+  const safeQuery = query.replace(/[%_,().]/g, (c) => `\\${c}`);
+
   let dbQuery = supabase
     .from('posts')
     .select('*, board:boards(name, slug)', { count: 'exact' })
     .eq('is_hidden', false)
-    .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
+    .or(`title.ilike.%${safeQuery}%,content.ilike.%${safeQuery}%`)
     .order('created_at', { ascending: false });
 
   if (boardSlug) {
