@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Heart, MessageCircle, Flag } from 'lucide-react';
 import { toggleLike } from '@/app/actions/likes';
+import { deleteComment } from '@/app/actions/comments';
 import ReportDialog from '@/components/ui/ReportDialog';
 import CommentForm from './CommentForm';
 import dayjs from 'dayjs';
@@ -29,11 +30,25 @@ interface CommentListProps {
 function CommentItem({ comment, postId, isReply = false }: { comment: Comment; postId: string; isReply?: boolean }) {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [likeCount, setLikeCount] = useState(comment.like_count);
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleLike = async () => {
     const result = await toggleLike('comment', comment.id);
     if ('liked' in result) {
       setLikeCount(prev => result.liked ? prev + 1 : prev - 1);
+    }
+  };
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    const result = await deleteComment(comment.id);
+    setIsDeleting(false);
+    if ('error' in result) {
+      setIsConfirmingDelete(false);
+      alert(result.error);
+    } else {
+      window.location.reload();
     }
   };
 
@@ -73,6 +88,31 @@ function CommentItem({ comment, postId, isReply = false }: { comment: Comment; p
               </button>
             }
           />
+          {!isConfirmingDelete ? (
+            <button
+              onClick={() => setIsConfirmingDelete(true)}
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-destructive transition-colors"
+            >
+              삭제
+            </button>
+          ) : (
+            <span className="flex items-center gap-1 text-xs">
+              <button
+                onClick={handleDelete}
+                disabled={isDeleting}
+                className="text-destructive hover:text-destructive/80 transition-colors"
+              >
+                {isDeleting ? '삭제 중' : '확인'}
+              </button>
+              <span className="text-muted-foreground/30">·</span>
+              <button
+                onClick={() => setIsConfirmingDelete(false)}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                취소
+              </button>
+            </span>
+          )}
         </div>
       </div>
 

@@ -77,3 +77,26 @@ export async function createComment(formData: FormData) {
 
   return { success: true };
 }
+
+export async function deleteComment(id: string) {
+  const { createClient: createAdminClient } = await import('@supabase/supabase-js');
+  const admin = createAdminClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+
+  const authorHash = await getClientHash();
+
+  const { data } = await admin
+    .from('comments')
+    .select('author_hash')
+    .eq('id', id)
+    .single();
+
+  if (!data || data.author_hash !== authorHash) {
+    return { error: '본인이 작성한 댓글만 삭제할 수 있습니다.' };
+  }
+
+  await admin.from('comments').update({ is_hidden: true }).eq('id', id);
+  return { success: true };
+}
