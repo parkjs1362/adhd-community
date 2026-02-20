@@ -23,11 +23,12 @@ export async function GET(request: NextRequest) {
           fontFamily: 'sans-serif',
         }}
       >
-        <div style={{ fontSize: 22, color: '#888', marginBottom: 28 }}>
-          🧠 ADHD 커뮤니티{board ? ` · ${board}` : ''}
+        <div style={{ display: 'flex', fontSize: 22, color: '#888', marginBottom: 28 }}>
+          {`🧠 ADHD 커뮤니티${board ? ` · ${board}` : ''}`}
         </div>
         <div
           style={{
+            display: 'flex',
             fontSize: 52,
             fontWeight: 700,
             color: '#111',
