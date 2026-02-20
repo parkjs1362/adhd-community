@@ -135,7 +135,7 @@ export async function getAdminPosts(page: number = 1, showHidden: boolean = fals
 
   let query = admin
     .from('posts')
-    .select('id, title, board_id, created_at, view_count, is_hidden', { count: 'exact' })
+    .select('id, title, board_id, board:boards(name, slug), created_at, view_count, is_hidden', { count: 'exact' })
     .order('created_at', { ascending: false })
     .range(from, from + PAGE_SIZE - 1);
 

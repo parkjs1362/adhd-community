@@ -8,6 +8,7 @@ interface Post {
   id: string;
   title: string;
   board_id: string;
+  board: { name: string; slug: string }[] | null;
   created_at: string;
   view_count: number;
   is_hidden: boolean;
@@ -96,7 +97,7 @@ export default function PostsClient({ posts, total, page, showHidden }: Props) {
                     </a>
                   </td>
                   <td className="px-4 py-3 text-gray-500 dark:text-gray-400 hidden md:table-cell">
-                    {post.board_id}
+                    {post.board?.[0]?.name ?? post.board_id}
                   </td>
                   <td className="px-4 py-3 text-gray-500 dark:text-gray-400 hidden sm:table-cell">
                     {new Date(post.created_at).toLocaleDateString('ko-KR', {
