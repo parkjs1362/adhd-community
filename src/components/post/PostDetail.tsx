@@ -5,8 +5,8 @@ import { Heart, Flag, Trash2, ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toggleLike } from '@/app/actions/likes';
-import { deletePost } from '@/app/actions/posts';
 import ReportDialog from '@/components/ui/ReportDialog';
+import DeleteDialog from '@/components/ui/DeleteDialog';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -32,7 +32,6 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
   const router = useRouter();
   const [liked, setLiked] = useState(initialLiked);
   const [likeCount, setLikeCount] = useState(post.like_count);
-  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleLike = async () => {
     const result = await toggleLike('post', post.id);
@@ -40,20 +39,6 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
       const isLiked = result.liked;
       setLiked(isLiked);
       setLikeCount(prev => isLiked ? prev + 1 : prev - 1);
-    }
-  };
-
-  const handleDelete = async () => {
-    const password = prompt('글 작성 시 입력한 비밀번호를 입력해주세요:');
-    if (!password) return;
-    setIsDeleting(true);
-    const result = await deletePost(post.id, password);
-    setIsDeleting(false);
-    if ('error' in result) {
-      alert(result.error);
-    } else {
-      alert('삭제되었습니다.');
-      router.push(post.board ? `/board/${post.board.slug}` : '/');
     }
   };
 
@@ -124,16 +109,20 @@ export default function PostDetail({ post, initialLiked }: PostDetailProps) {
               </Button>
             }
           />
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleDelete}
-            disabled={isDeleting}
-            className="text-muted-foreground hover:text-destructive rounded-full"
-          >
-            <Trash2 className="h-4 w-4 mr-1" />
-            삭제
-          </Button>
+          <DeleteDialog
+            postId={post.id}
+            boardSlug={post.board?.slug}
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-destructive rounded-full"
+              >
+                <Trash2 className="h-4 w-4 mr-1" />
+                삭제
+              </Button>
+            }
+          />
         </div>
       </div>
     </article>
