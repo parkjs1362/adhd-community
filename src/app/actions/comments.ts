@@ -1,9 +1,19 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import { createClient as createAdminClient } from '@supabase/supabase-js';
 import { headers } from 'next/headers';
 import { createHash } from 'crypto';
 import sanitizeHtml from 'sanitize-html';
+import webpush from 'web-push';
+import { SITE_URL } from '@/lib/constants';
+
+function getAdminSupabase() {
+  return createAdminClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 function sanitize(text: string): string {
   return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} });
@@ -73,6 +83,94 @@ export async function createComment(formData: FormData) {
 
   if (error) {
     return { error: '댓글 작성에 실패했습니다.' };
+  }
+
+  // Web Push 발송 (fire-and-forget, 실패해도 댓글 작성에 영향 없음)
+  try {
+    if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+      webpush.setVapidDetails(
+        process.env.VAPID_EMAIL || 'mailto:admin@adhd-community.com',
+        process.env.VAPID_PUBLIC_KEY,
+        process.env.VAPID_PRIVATE_KEY
+      );
+    } else {
+      return { success: true };
+    }
+    const admin = getAdminSupabase();
+    const postUrl = `${SITE_URL}/post/${postId}`;
+    const preview = content.slice(0, 30);
+
+    if (parentId) {
+      // 대댓글: 부모 댓글 작성자에게 알림
+      const { data: parentComment } = await admin
+        .from('comments')
+        .select('author_hash, author_nickname')
+        .eq('id', parentId)
+        .single();
+
+      if (parentComment && parentComment.author_hash !== authorHash) {
+        const { data: subs } = await admin
+          .from('push_subscriptions')
+          .select('endpoint, subscription')
+          .eq('author_hash', parentComment.author_hash);
+
+        if (subs && subs.length > 0) {
+          const payload = JSON.stringify({
+            title: 'ADHD 커뮤니티',
+            body: `${nickname}님이 답글을 남겼습니다: ${preview}`,
+            url: postUrl,
+          });
+          await Promise.allSettled(
+            subs.map(async (s) => {
+              try {
+                await webpush.sendNotification(s.subscription, payload);
+              } catch (err: unknown) {
+                const statusCode = (err as { statusCode?: number })?.statusCode;
+                if (statusCode === 410 || statusCode === 404) {
+                  await admin.from('push_subscriptions').delete().eq('endpoint', s.endpoint);
+                }
+              }
+            })
+          );
+        }
+      }
+    } else {
+      // 댓글: 게시글 작성자에게 알림
+      const { data: post } = await admin
+        .from('posts')
+        .select('author_hash, author_nickname')
+        .eq('id', postId)
+        .single();
+
+      if (post && post.author_hash !== authorHash) {
+        const { data: subs } = await admin
+          .from('push_subscriptions')
+          .select('endpoint, subscription')
+          .eq('author_hash', post.author_hash);
+
+        if (subs && subs.length > 0) {
+          const payload = JSON.stringify({
+            title: 'ADHD 커뮤니티',
+            body: `${nickname}님이 댓글을 남겼습니다: ${preview}`,
+            url: postUrl,
+          });
+          await Promise.allSettled(
+            subs.map(async (s) => {
+              try {
+                await webpush.sendNotification(s.subscription, payload);
+              } catch (err: unknown) {
+                const statusCode = (err as { statusCode?: number })?.statusCode;
+                if (statusCode === 410 || statusCode === 404) {
+                  await admin.from('push_subscriptions').delete().eq('endpoint', s.endpoint);
+                }
+              }
+            })
+          );
+        }
+      }
+    }
+  } catch {
+    // Push 발송 실패는 무시
   }
 
   return { success: true };

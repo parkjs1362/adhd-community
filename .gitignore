@@ -22,6 +22,7 @@
 
 # misc
 .DS_Store
+.worktrees/
 *.pem
 
 # debug
@@ -40,3 +41,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 supabase/.temp/
+obsidian
+.env*.local

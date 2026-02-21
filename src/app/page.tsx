@@ -5,7 +5,7 @@ import PostList from '@/components/post/PostList';
 import Sidebar from '@/components/layout/Sidebar';
 import AdBanner from '@/components/ads/AdBanner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Flame } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -14,7 +14,10 @@ async function PopularPosts() {
 
   return (
     <div className="animate-fade-in">
-      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3 tracking-tight">인기글</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3 tracking-tight flex items-center gap-2">
+        <Flame className="h-5 w-5 text-[#EF4444]" />
+        지금 핫한 글
+      </h2>
 
       <Tabs defaultValue="24h">
         <TabsList className="mb-3 segmented-control h-8">
