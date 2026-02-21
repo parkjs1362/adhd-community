@@ -107,25 +107,25 @@
   --board-parents: #EC4899;
 }
 
-/* ===== DARK THEME (Warm Dark) ===== */
+/* ===== DARK THEME (Neutral Dark) ===== */
 .dark {
-  --background: #1C1714;
-  --foreground: #FEF3C7;
-  --card: #28211C;
-  --card-foreground: #FEF3C7;
-  --popover: #28211C;
-  --popover-foreground: #FEF3C7;
+  --background: #111111;
+  --foreground: #F2F2F7;
+  --card: #1C1C1E;
+  --card-foreground: #F2F2F7;
+  --popover: #1C1C1E;
+  --popover-foreground: #F2F2F7;
   --primary: #FBBF24;
-  --primary-foreground: #1C1714;
-  --secondary: #2E2318;
-  --secondary-foreground: #FEF3C7;
-  --muted: #2E2318;
-  --muted-foreground: #A8956B;
+  --primary-foreground: #111111;
+  --secondary: #262626;
+  --secondary-foreground: #F2F2F7;
+  --muted: #262626;
+  --muted-foreground: #A1A1AA;
   --accent: #FBBF24;
-  --accent-foreground: #1C1714;
+  --accent-foreground: #111111;
   --destructive: #F87171;
-  --border: rgba(245, 158, 11, 0.2);
-  --input: rgba(245, 158, 11, 0.12);
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.06);
   --ring: #FBBF24;
 
   --chart-1: #FBBF24;
@@ -134,22 +134,22 @@
   --chart-4: #A78BFA;
   --chart-5: #F472B6;
 
-  --sidebar: #28211C;
-  --sidebar-foreground: #FEF3C7;
+  --sidebar: #1C1C1E;
+  --sidebar-foreground: #F2F2F7;
   --sidebar-primary: #FBBF24;
-  --sidebar-primary-foreground: #1C1714;
-  --sidebar-accent: #2E2318;
-  --sidebar-accent-foreground: #FEF3C7;
-  --sidebar-border: rgba(245, 158, 11, 0.2);
+  --sidebar-primary-foreground: #111111;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #F2F2F7;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #FBBF24;
 
-  /* Warm Dark tokens */
-  --warm-bg: #1C1714;
-  --warm-card: #28211C;
-  --warm-card-alt: #2E2318;
-  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
-  --card-shadow-hover: 0 2px 6px rgba(245, 158, 11, 0.15), 0 8px 24px rgba(0, 0, 0, 0.3);
-  --surface-hover: rgba(245, 158, 11, 0.07);
+  /* Neutral Dark tokens */
+  --warm-bg: #111111;
+  --warm-card: #1C1C1E;
+  --warm-card-alt: #262626;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --card-shadow-hover: 0 2px 6px rgba(251, 191, 36, 0.12), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --surface-hover: rgba(255, 255, 255, 0.04);
   --badge-hot-bg: rgba(239, 68, 68, 0.2);
   --badge-hot-text: #FCA5A5;
   --badge-new-bg: rgba(245, 158, 11, 0.2);
