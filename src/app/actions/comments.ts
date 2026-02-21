@@ -111,7 +111,7 @@ export async function createComment(formData: FormData) {
       if (parentComment && parentComment.author_hash !== authorHash) {
         const { data: subs } = await admin
           .from('push_subscriptions')
-          .select('subscription')
+          .select('endpoint, subscription')
           .eq('author_hash', parentComment.author_hash);
 
         if (subs && subs.length > 0) {
@@ -121,7 +121,16 @@ export async function createComment(formData: FormData) {
             url: postUrl,
           });
           await Promise.allSettled(
-            subs.map((s) => webpush.sendNotification(s.subscription, payload))
+            subs.map(async (s) => {
+              try {
+                await webpush.sendNotification(s.subscription, payload);
+              } catch (err: unknown) {
+                const statusCode = (err as { statusCode?: number })?.statusCode;
+                if (statusCode === 410 || statusCode === 404) {
+                  await admin.from('push_subscriptions').delete().eq('endpoint', s.endpoint);
+                }
+              }
+            })
           );
         }
       }
@@ -136,7 +145,7 @@ export async function createComment(formData: FormData) {
       if (post && post.author_hash !== authorHash) {
         const { data: subs } = await admin
           .from('push_subscriptions')
-          .select('subscription')
+          .select('endpoint, subscription')
           .eq('author_hash', post.author_hash);
 
         if (subs && subs.length > 0) {
@@ -146,7 +155,16 @@ export async function createComment(formData: FormData) {
             url: postUrl,
           });
           await Promise.allSettled(
-            subs.map((s) => webpush.sendNotification(s.subscription, payload))
+            subs.map(async (s) => {
+              try {
+                await webpush.sendNotification(s.subscription, payload);
+              } catch (err: unknown) {
+                const statusCode = (err as { statusCode?: number })?.statusCode;
+                if (statusCode === 410 || statusCode === 404) {
+                  await admin.from('push_subscriptions').delete().eq('endpoint', s.endpoint);
+                }
+              }
+            })
           );
         }
       }
