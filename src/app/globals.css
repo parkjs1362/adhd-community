@@ -47,103 +47,120 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-/* ===== LIGHT THEME ===== */
+/* ===== LIGHT THEME (Warm Cream) ===== */
 :root {
   --radius: 1rem;
   --font-body: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
 
-  --background: #F5F5F7;
-  --foreground: #1D1D1F;
-  --card: #FFFFFF;
-  --card-foreground: #1D1D1F;
-  --popover: #FFFFFF;
-  --popover-foreground: #1D1D1F;
-  --primary: #0071E3;
+  /* Warm Cream palette */
+  --background: #FFF8F0;
+  --foreground: #292524;
+  --card: #FFFCF7;
+  --card-foreground: #292524;
+  --popover: #FFFCF7;
+  --popover-foreground: #292524;
+  --primary: #F59E0B;
   --primary-foreground: #FFFFFF;
-  --secondary: #F5F5F7;
-  --secondary-foreground: #1D1D1F;
-  --muted: #F5F5F7;
-  --muted-foreground: #86868B;
-  --accent: #0071E3;
+  --secondary: #FEF3C7;
+  --secondary-foreground: #292524;
+  --muted: #F5EFE6;
+  --muted-foreground: #78716C;
+  --accent: #F59E0B;
   --accent-foreground: #FFFFFF;
-  --destructive: #FF3B30;
-  --border: rgba(0, 0, 0, 0.08);
-  --input: rgba(0, 0, 0, 0.06);
-  --ring: #0071E3;
+  --destructive: #EF4444;
+  --border: rgba(245, 158, 11, 0.15);
+  --input: rgba(245, 158, 11, 0.1);
+  --ring: #F59E0B;
 
-  --chart-1: #007AFF;
-  --chart-2: #34C759;
-  --chart-3: #FF9F0A;
-  --chart-4: #AF52DE;
-  --chart-5: #FF2D55;
+  --chart-1: #F59E0B;
+  --chart-2: #10B981;
+  --chart-3: #F97316;
+  --chart-4: #8B5CF6;
+  --chart-5: #EC4899;
 
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #1D1D1F;
-  --sidebar-primary: #0071E3;
+  --sidebar: #FFFCF7;
+  --sidebar-foreground: #292524;
+  --sidebar-primary: #F59E0B;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F5F5F7;
-  --sidebar-accent-foreground: #1D1D1F;
-  --sidebar-border: rgba(0, 0, 0, 0.08);
-  --sidebar-ring: #0071E3;
+  --sidebar-accent: #FEF3C7;
+  --sidebar-accent-foreground: #292524;
+  --sidebar-border: rgba(245, 158, 11, 0.15);
+  --sidebar-ring: #F59E0B;
 
-  /* Apple tokens */
-  --glass-bg: rgba(255, 255, 255, 0.78);
-  --glass-border: rgba(0, 0, 0, 0.06);
-  --card-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.03);
-  --card-shadow-hover: 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.08);
-  --surface-hover: rgba(0, 0, 0, 0.035);
-  --badge-hot-bg: rgba(255, 59, 48, 0.1);
-  --badge-hot-text: #FF3B30;
-  --badge-new-bg: rgba(0, 113, 227, 0.1);
-  --badge-new-text: #0071E3;
+  /* Warm Cream tokens */
+  --warm-bg: #FFF8F0;
+  --warm-card: #FFFCF7;
+  --warm-card-alt: #FFFEF9;
+  --card-shadow: 0 1px 3px rgba(120, 80, 10, 0.06), 0 2px 8px rgba(120, 80, 10, 0.04);
+  --card-shadow-hover: 0 2px 6px rgba(245, 158, 11, 0.12), 0 8px 24px rgba(120, 80, 10, 0.08);
+  --surface-hover: rgba(245, 158, 11, 0.05);
+  --badge-hot-bg: #FEE2E2;
+  --badge-hot-text: #EF4444;
+  --badge-new-bg: #FEF3C7;
+  --badge-new-text: #D97706;
+
+  /* Board colors */
+  --board-free: #F59E0B;
+  --board-info: #10B981;
+  --board-daily: #F97316;
+  --board-meds: #8B5CF6;
+  --board-parents: #EC4899;
 }
 
-/* ===== DARK THEME ===== */
+/* ===== DARK THEME (Warm Dark) ===== */
 .dark {
-  --background: #000000;
-  --foreground: #F5F5F7;
-  --card: #1C1C1E;
-  --card-foreground: #F5F5F7;
-  --popover: #1C1C1E;
-  --popover-foreground: #F5F5F7;
-  --primary: #2997FF;
-  --primary-foreground: #FFFFFF;
-  --secondary: #1C1C1E;
-  --secondary-foreground: #F5F5F7;
-  --muted: #2C2C2E;
-  --muted-foreground: #86868B;
-  --accent: #2997FF;
-  --accent-foreground: #FFFFFF;
-  --destructive: #FF453A;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: #2997FF;
+  --background: #1C1714;
+  --foreground: #FEF3C7;
+  --card: #28211C;
+  --card-foreground: #FEF3C7;
+  --popover: #28211C;
+  --popover-foreground: #FEF3C7;
+  --primary: #FBBF24;
+  --primary-foreground: #1C1714;
+  --secondary: #2E2318;
+  --secondary-foreground: #FEF3C7;
+  --muted: #2E2318;
+  --muted-foreground: #A8956B;
+  --accent: #FBBF24;
+  --accent-foreground: #1C1714;
+  --destructive: #F87171;
+  --border: rgba(245, 158, 11, 0.2);
+  --input: rgba(245, 158, 11, 0.12);
+  --ring: #FBBF24;
 
-  --chart-1: #2997FF;
-  --chart-2: #30D158;
-  --chart-3: #FFD60A;
-  --chart-4: #BF5AF2;
-  --chart-5: #FF375F;
+  --chart-1: #FBBF24;
+  --chart-2: #34D399;
+  --chart-3: #FB923C;
+  --chart-4: #A78BFA;
+  --chart-5: #F472B6;
 
-  --sidebar: #1C1C1E;
-  --sidebar-foreground: #F5F5F7;
-  --sidebar-primary: #2997FF;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #2C2C2E;
-  --sidebar-accent-foreground: #F5F5F7;
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #2997FF;
+  --sidebar: #28211C;
+  --sidebar-foreground: #FEF3C7;
+  --sidebar-primary: #FBBF24;
+  --sidebar-primary-foreground: #1C1714;
+  --sidebar-accent: #2E2318;
+  --sidebar-accent-foreground: #FEF3C7;
+  --sidebar-border: rgba(245, 158, 11, 0.2);
+  --sidebar-ring: #FBBF24;
 
-  /* Apple tokens - dark */
-  --glass-bg: rgba(28, 28, 30, 0.78);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --card-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.08), 0 1px 2px rgba(0, 0, 0, 0.3);
-  --card-shadow-hover: 0 0 0 0.5px rgba(255, 255, 255, 0.12), 0 2px 4px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
-  --surface-hover: rgba(255, 255, 255, 0.06);
-  --badge-hot-bg: rgba(255, 69, 58, 0.16);
-  --badge-hot-text: #FF453A;
-  --badge-new-bg: rgba(41, 151, 255, 0.16);
-  --badge-new-text: #2997FF;
+  /* Warm Dark tokens */
+  --warm-bg: #1C1714;
+  --warm-card: #28211C;
+  --warm-card-alt: #2E2318;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --card-shadow-hover: 0 2px 6px rgba(245, 158, 11, 0.15), 0 8px 24px rgba(0, 0, 0, 0.3);
+  --surface-hover: rgba(245, 158, 11, 0.07);
+  --badge-hot-bg: rgba(239, 68, 68, 0.2);
+  --badge-hot-text: #FCA5A5;
+  --badge-new-bg: rgba(245, 158, 11, 0.2);
+  --badge-new-text: #FCD34D;
+
+  /* Board colors - dark */
+  --board-free: #FBBF24;
+  --board-info: #34D399;
+  --board-daily: #FB923C;
+  --board-meds: #A78BFA;
+  --board-parents: #F472B6;
 }
 
 /* ===== BASE ===== */
@@ -198,11 +215,10 @@
 
 /* ===== UTILITIES ===== */
 @layer utilities {
+  /* warm-card: solid cream card (replaces glass) */
   .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-color: var(--glass-border);
+    background: var(--warm-card);
+    border-color: var(--border);
   }
 
   .card-elevated {
@@ -232,6 +248,19 @@
     color: var(--badge-new-text);
   }
 
+  /* Board color badges */
+  .badge-board-free    { background-color: #FEF3C7; color: #D97706; }
+  .badge-board-info    { background-color: #D1FAE5; color: #059669; }
+  .badge-board-daily   { background-color: #FFEDD5; color: #C2410C; }
+  .badge-board-meds    { background-color: #EDE9FE; color: #7C3AED; }
+  .badge-board-parents { background-color: #FCE7F3; color: #BE185D; }
+
+  .dark .badge-board-free    { background-color: rgba(245,158,11,0.2); color: #FCD34D; }
+  .dark .badge-board-info    { background-color: rgba(16,185,129,0.2); color: #6EE7B7; }
+  .dark .badge-board-daily   { background-color: rgba(249,115,22,0.2); color: #FDBA74; }
+  .dark .badge-board-meds    { background-color: rgba(139,92,246,0.2); color: #C4B5FD; }
+  .dark .badge-board-parents { background-color: rgba(236,72,153,0.2); color: #F9A8D4; }
+
   .segmented-control {
     background: var(--muted);
     border-radius: 10px;
@@ -246,7 +275,7 @@
 
   .segmented-control-item[data-state="active"] {
     background: var(--card);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(120, 80, 10, 0.08), 0 0 0 0.5px rgba(245, 158, 11, 0.1);
   }
 }
 

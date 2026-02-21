@@ -3,11 +3,11 @@ export const SITE_DESCRIPTION = '한국 ADHD 당사자와 부모를 위한 오�
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://adhd-community.vercel.app').trim();
 
 export const BOARDS = [
-  { name: '자유게시판', slug: 'free', description: 'ADHD 관련 자유로운 이야기', color: '#007AFF' },
-  { name: 'ADHD 정보', slug: 'info', description: '약물, 치료, 논문, 뉴스 등 정보 공유', color: '#34C759' },
-  { name: '일상 공유', slug: 'daily', description: '일상 속 ADHD 경험과 팁', color: '#FF9F0A' },
-  { name: '약물/치료 후기', slug: 'treatment', description: '약물 복용, 치료 경험 후기', color: '#AF52DE' },
-  { name: '부모 게시판', slug: 'parents', description: 'ADHD 자녀를 둔 부모를 위한 공간', color: '#FF2D55' },
+  { name: '자유게시판', slug: 'free', description: 'ADHD 관련 자유로운 이야기', color: '#F59E0B', badgeClass: 'badge-board-free' },
+  { name: 'ADHD 정보', slug: 'info', description: '약물, 치료, 논문, 뉴스 등 정보 공유', color: '#10B981', badgeClass: 'badge-board-info' },
+  { name: '일상 공유', slug: 'daily', description: '일상 속 ADHD 경험과 팁', color: '#F97316', badgeClass: 'badge-board-daily' },
+  { name: '약물/치료 후기', slug: 'treatment', description: '약물 복용, 치료 경험 후기', color: '#8B5CF6', badgeClass: 'badge-board-meds' },
+  { name: '부모 게시판', slug: 'parents', description: 'ADHD 자녀를 둔 부모를 위한 공간', color: '#EC4899', badgeClass: 'badge-board-parents' },
 ] as const;
 
 export const POSTS_PER_PAGE = 20;

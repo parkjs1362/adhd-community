@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { MessageCircle, Heart, Eye } from 'lucide-react';
-import { HOT_THRESHOLD, NEW_THRESHOLD_HOURS } from '@/lib/constants';
+import { Heart, Eye } from 'lucide-react';
+import { BOARDS, HOT_THRESHOLD, NEW_THRESHOLD_HOURS } from '@/lib/constants';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
@@ -26,6 +26,7 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
   const isNew = dayjs().diff(dayjs(post.created_at), 'hour') < NEW_THRESHOLD_HOURS;
   const isHot = post.like_count >= HOT_THRESHOLD;
   const timeAgo = dayjs(post.created_at).fromNow();
+  const boardDef = post.board ? BOARDS.find(b => b.slug === post.board!.slug) : undefined;
 
   return (
     <Link
@@ -34,13 +35,18 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 mb-1">
+          {showBoard && post.board && boardDef && (
+            <span className={`${boardDef.badgeClass} text-[10px] font-semibold px-1.5 py-0.5 rounded-md leading-none shrink-0`}>
+              {post.board.name}
+            </span>
+          )}
           {isHot && (
-            <span className="badge-hot text-[10px] font-semibold px-1.5 py-0.5 rounded-full leading-none shrink-0">
-              HOT
+            <span className="badge-hot text-[10px] font-semibold px-1.5 py-0.5 rounded-md leading-none shrink-0">
+              HOT 🔥
             </span>
           )}
           {isNew && !isHot && (
-            <span className="badge-new text-[10px] font-semibold px-1.5 py-0.5 rounded-full leading-none shrink-0">
+            <span className="badge-new text-[10px] font-semibold px-1.5 py-0.5 rounded-md leading-none shrink-0">
               NEW
             </span>
           )}
@@ -54,12 +60,6 @@ export default function PostCard({ post, showBoard = false }: PostCardProps) {
           )}
         </div>
         <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
-          {showBoard && post.board && (
-            <>
-              <span className="font-medium text-foreground/60">{post.board.name}</span>
-              <span className="text-muted-foreground/30">·</span>
-            </>
-          )}
           <span>{post.author_nickname}</span>
           <span className="text-muted-foreground/30">·</span>
           <span suppressHydrationWarning>{timeAgo}</span>
