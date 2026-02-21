@@ -1,6 +1,6 @@
 export const SITE_NAME = 'ADHD 커뮤니티';
 export const SITE_DESCRIPTION = '한국 ADHD 당사자와 부모를 위한 오픈 커뮤니티';
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://adhd-community.vercel.app';
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://adhd-community.vercel.app').trim();
 
 export const BOARDS = [
   { name: '자유게시판', slug: 'free', description: 'ADHD 관련 자유로운 이야기', color: '#007AFF' },
