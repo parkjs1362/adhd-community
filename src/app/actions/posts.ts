@@ -218,6 +218,16 @@ export async function updatePost(id: string, title: string, content: string, pas
   return { success: true };
 }
 
+export async function getAllPostsForSitemap() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from('posts')
+    .select('id, updated_at')
+    .eq('is_hidden', false)
+    .order('created_at', { ascending: false });
+  return data || [];
+}
+
 export async function deletePost(id: string, password: string) {
   const supabase = await createClient();
   const passwordHash = createHash('sha256').update(password).digest('hex').slice(0, 16);

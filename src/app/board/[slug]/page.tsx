@@ -6,7 +6,7 @@ import Sidebar from '@/components/layout/Sidebar';
 import AdBanner from '@/components/ads/AdBanner';
 import { Button } from '@/components/ui/button';
 import { PenSquare } from 'lucide-react';
-import { BOARDS } from '@/lib/constants';
+import { BOARDS, SITE_URL } from '@/lib/constants';
 import type { Metadata } from 'next';
 import type { SortOption } from '@/types';
 
@@ -42,7 +42,18 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
   const { posts, total } = await getPostsByBoard(slug, page, sort);
   const totalPages = Math.ceil(total / 20);
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '홈', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: board.name, item: `${SITE_URL}/board/${slug}` },
+    ],
+  };
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
       <div className="flex gap-8">
         <Sidebar currentSlug={slug} />
@@ -112,5 +123,6 @@ export default async function BoardPage({ params, searchParams }: PageProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }
